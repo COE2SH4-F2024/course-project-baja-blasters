@@ -7,6 +7,7 @@ using namespace std;
 #define DELAY_CONST 100000
 
 bool exitFlag;
+// hello?
 
 void Initialize(void);
 void GetInput(void);
