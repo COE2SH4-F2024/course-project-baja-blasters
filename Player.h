@@ -24,10 +24,12 @@ class Player
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
         void movePlayer();
+        objPosArrayList getPlayerArrayList() const; 
 
         // More methods to be added here
 
     private:
+        objPosArrayList player; 
         objPos playerPos; // Upgrade this in iteration 3.       
         enum Dir myDir;
 

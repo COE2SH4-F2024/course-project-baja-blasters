@@ -13,20 +13,22 @@ Player::Player(GameMechs* thisGMRef)
     playerPos = objPos(1, 5, 'D'); 
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
+    player = objPosArrayList(); 
     
     
 }
-
 
 Player::~Player()
 {
     // delete any heap members here
 }
+objPosArrayList Player::getPlayerArrayList() const{
+    return player; 
+}
 
 objPos Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-
     return playerPos.getObjPos();  
 }
 

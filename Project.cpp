@@ -11,7 +11,7 @@ using namespace std;
 
 GameMechs* g; 
 Player p; 
-objPosArrayList pbody;
+//objPosArrayList p.getPlayerArrayList();
 Food f; 
 
 void Initialize(void);
@@ -46,14 +46,11 @@ void Initialize(void)
     MacUILib_clearScreen();
     g = new GameMechs(10, 20); 
     p = Player(g); 
-    pbody.insertHead(p.getPlayerPos());
+    p.getPlayerArrayList().insertHead(p.getPlayerPos());
     f = Food(); 
     for(int i = 0; i < 5; i++){
         f.generateFood(p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
     }
-    // for(int i = 0; i < FOOD_SPAWN_CAP; i++){
-    //     f.generateFood(p.getPlayerPos()); 
-    // }
     f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY()); 
 }
 
@@ -69,7 +66,7 @@ void GetInput(void)
 void RunLogic(void)
 {
     p.movePlayer();  
-    pbody.insertHead(p.getPlayerPos());
+    p.getPlayerArrayList().insertHead(p.getPlayerPos());
     
     bool foodeatenflag=false;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
@@ -90,7 +87,7 @@ void RunLogic(void)
     }
     else
     {
-        pbody.removeTail();
+        p.getPlayerArrayList().removeTail();
     }
 
 }
@@ -108,17 +105,17 @@ void DrawScreen(void)
             else{
                 board[i][j] = ' '; 
             }
-            if (pbody.getSize()==0)
+            if (p.getPlayerArrayList().getSize()==0)
             {
-               if(i == pbody.getElement(0).pos->x && j == pbody.getElement(0).pos->y){
-                    board[i][j] = pbody.getElement(0).symbol; 
+               if(i == p.getPlayerArrayList().getElement(0).pos->x && j == p.getPlayerArrayList().getElement(0).pos->y){
+                    board[i][j] = p.getPlayerArrayList().getElement(0).symbol; 
                 } 
             }
             else
             {
-                for(int k = 0; k < pbody.getSize(); k++){
-                    if(i == pbody.getElement(k).pos->x && j == pbody.getElement(k).pos->y){
-                        board[i][j] = pbody.getElement(k).symbol; 
+                for(int k = 0; k < p.getPlayerArrayList().getSize(); k++){
+                    if(i == p.getPlayerArrayList().getElement(k).pos->x && j == p.getPlayerArrayList().getElement(k).pos->y){
+                        board[i][j] = p.getPlayerArrayList().getElement(k).symbol; 
                     }
             }
             }
