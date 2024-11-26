@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "Player.h"
 #include "GameMechs.h"
+#include "Food.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ using namespace std;
 
 GameMechs* g; 
 Player p; 
+Food f; 
 
 void Initialize(void);
 void GetInput(void);
@@ -43,6 +45,10 @@ void Initialize(void)
     MacUILib_clearScreen();
     g = new GameMechs(10, 20); 
     p = Player(g); 
+    f = Food(); 
+    for(int i = 0; i < 5; i++){
+        f.generateFood(p.getPlayerPos()); 
+    }
 }
 
 void GetInput(void)
@@ -61,9 +67,9 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen(); 
-    char board[g->getBoardSizeX()][g->getBoardSizeY()]; 
+    MacUILib_clearScreen();
 
+    char board[g->getBoardSizeX()][g->getBoardSizeY()]; 
     for(int i = 0; i < g->getBoardSizeX(); i++){ // x
         for(int j = 0; j < g->getBoardSizeY(); j++){ // y
             if (i == p.getPlayerPos().pos->x && j == p.getPlayerPos().pos->y){
@@ -74,6 +80,11 @@ void DrawScreen(void)
             }
             else{
                 board[i][j] = ' '; 
+            }
+            for(int k = 0; k < 5; k++){
+                if(i == f.getFoodpos(k).pos->x && j == f.getFoodpos(k).pos->y){
+                    board[i][j] = f.getFoodpos(k).symbol; 
+                }
             }
             MacUILib_printf("%c", board[i][j]); 
         }
@@ -93,7 +104,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     delete g; 
-    MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    
 
     MacUILib_uninit();
 }
