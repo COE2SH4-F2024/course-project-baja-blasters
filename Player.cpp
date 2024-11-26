@@ -1,5 +1,8 @@
 #include "Player.h"
 
+Player::Player(){
+
+}
 
 Player::Player(GameMechs* thisGMRef)
 {
@@ -23,6 +26,7 @@ Player::~Player()
 objPos Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
+
     return playerPos.getObjPos();  
 }
 

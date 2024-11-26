@@ -68,14 +68,14 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen(); 
-    o = p.getPlayerPos(); 
+    o = p.getPlayerPos();  
 
     for(int i = 0; i < row; i++){ // x
         for(int j = 0; j < col; j++){ // y
             if (i == o.pos->x && j == o.pos->y){
                 board[i][j] = o.symbol;  
             }
-            if((i == 0 || i == row-1 || j == 0 || j == col-1)){
+            else if((i == 0 || i == row-1 || j == 0 || j == col-1)){
                 board[i][j] = '#'; 
             }
             else{
@@ -86,6 +86,7 @@ void DrawScreen(void)
         MacUILib_printf("\n"); 
     }  
     MacUILib_printf("%d, %d, %c", o.pos->x, o.pos->y, o.symbol); 
+
      
 }
 
