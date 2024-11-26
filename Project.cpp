@@ -46,13 +46,12 @@ void Initialize(void)
     MacUILib_clearScreen();
     g = new GameMechs(10, 20); 
     p = Player(g); 
-    p.getPlayerArrayList().insertHead(p.getPlayerPos());
     f = Food(); 
     for(int i = 0; i < 5; i++){
-        f.generateFood(p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
+        f.generateFood(*p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
     }
-    f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY()); 
-    p.getPlayerArrayList().insertHead(objPos(1, 5, 'D')); 
+    f.generateFood(*p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY()); 
+    //p.getPlayerArrayList().insertHead(objPos(1, 5, 'D')); 
 }
 
 void GetInput(void)
@@ -67,12 +66,12 @@ void GetInput(void)
 void RunLogic(void)
 {
     p.movePlayer();  
-    p.getPlayerArrayList().insertHead(p.getPlayerPos());
+    p.getPlayerArrayList().insertHead(*p.getPlayerPos());
     
     bool foodeatenflag=false;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
     {
-        if(p.getPlayerPos().pos->x!=f.getFoodpos(k).pos->x || p.getPlayerPos().pos->y!=f.getFoodpos(k).pos->y)
+        if((*p.getPlayerPos()).pos->x!=f.getFoodpos(k).pos->x || (*p.getPlayerPos()).pos->y!=f.getFoodpos(k).pos->y)
         {
             foodeatenflag = false;
         }
@@ -84,7 +83,7 @@ void RunLogic(void)
     }
     if(foodeatenflag)
     {
-        f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());
+        f.generateFood(*p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());
     }
     else
     {
@@ -130,7 +129,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n"); 
     }  
-    MacUILib_printf("%d, %d, %c\n", p.getPlayerPos().pos->x, p.getPlayerPos().pos->y, p.getPlayerPos().symbol); 
+    MacUILib_printf("%d, %d, %c\n", (*p.getPlayerPos()).pos->x, (*p.getPlayerPos()).pos->y, (*p.getPlayerPos()).symbol); 
     for(int i = 0; i < FOOD_SPAWN_CAP; i++){
         MacUILib_printf("%d, %d, %c\n", f.getFoodpos(i).pos->x, f.getFoodpos(i).pos->y, f.getFoodpos(i).symbol); 
     }
