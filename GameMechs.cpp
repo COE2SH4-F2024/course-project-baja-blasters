@@ -2,12 +2,16 @@
 
 GameMechs::GameMechs()
 {
-    
+    boardSizeX = 30; 
+    boardSizeY = 15; 
+    //initialize everything else to null; 
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
-    
+    boardSizeX = boardX; 
+    boardSizeY = boardY; 
+    //initialize everything else to null; 
 }
 
 // do you need a destructor?
