@@ -49,8 +49,8 @@ void Food:: generateFood(objPos playpos, int xrange, int yrange)
         int j;
         do
         {
-            foodXYS[i].pos->x = rand() % 18 + 1;
-            foodXYS[i].pos->x = rand() % 8 + 1; 
+            foodXYS[i].pos->x = rand() % (xrange-2) + 1;
+            foodXYS[i].pos->y = rand() % (yrange-2) + 1; 
             //symbol selection here
             if(i==3)
             {
