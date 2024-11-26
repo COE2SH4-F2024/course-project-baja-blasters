@@ -22,4 +22,7 @@ class Food
 };
 
 
+// Proposition: include a GameMechs pointer so we can change up
+// the dimensions of availablepos[]. 
+
 

@@ -50,9 +50,10 @@ void Food:: generateFood(objPos playpos)
         do
         {
             foodXYS[i].pos->x = rand() % 18 + 1;
-            foodXYS[i].pos->x = rand() % 8 + 1; 
+            foodXYS[i].pos->y = rand() % 8 + 1; 
             //symbol selection here
-            
+            foodXYS[i].symbol = 'O'; 
+
         } while ((availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x] != 0));
         availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x]=1;
     }
