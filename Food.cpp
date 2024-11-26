@@ -49,14 +49,9 @@ void Food:: generateFood(objPos playpos, int xrange, int yrange)
         int j;
         do
         {
-<<<<<<< HEAD
-            foodXYS[i].pos->x = rand() % (xrange-2) + 1;
-            foodXYS[i].pos->y = rand() % (yrange-2) + 1; 
-=======
             foodXYS[i].pos->x = rand() % 18 + 1;
             foodXYS[i].pos->x = rand() % 8 + 1; 
             //symbol selection here
->>>>>>> 199315e0639d558eee938b6d747dbae2904f8a70
             if(i==3)
             {
                 bool cointoss = rand()%2;

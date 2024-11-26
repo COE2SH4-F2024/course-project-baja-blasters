@@ -46,9 +46,10 @@ void Initialize(void)
     g = new GameMechs(10, 20); 
     p = Player(g); 
     f = Food(); 
-    for(int i = 0; i < 5; i++){
-        f.generateFood(p.getPlayerPos()); 
-    }
+    // for(int i = 0; i < FOOD_SPAWN_CAP; i++){
+    //     f.generateFood(p.getPlayerPos()); 
+    // }
+    f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY()); 
 }
 
 void GetInput(void)
@@ -81,7 +82,7 @@ void DrawScreen(void)
             else{
                 board[i][j] = ' '; 
             }
-            for(int k = 0; k < 5; k++){
+            for(int k = 0; k < FOOD_SPAWN_CAP; k++){
                 if(i == f.getFoodpos(k).pos->x && j == f.getFoodpos(k).pos->y){
                     board[i][j] = f.getFoodpos(k).symbol; 
                 }
@@ -90,7 +91,10 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n"); 
     }  
-    MacUILib_printf("%d, %d, %c", p.getPlayerPos().pos->x, p.getPlayerPos().pos->y, p.getPlayerPos().symbol); 
+    MacUILib_printf("%d, %d, %c\n", p.getPlayerPos().pos->x, p.getPlayerPos().pos->y, p.getPlayerPos().symbol); 
+    for(int i = 0; i < FOOD_SPAWN_CAP; i++){
+        MacUILib_printf("%d, %d, %c\n", f.getFoodpos(i).pos->x, f.getFoodpos(i).pos->y, f.getFoodpos(i).symbol); 
+    }
 
      
 }
