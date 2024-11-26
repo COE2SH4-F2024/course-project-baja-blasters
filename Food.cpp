@@ -52,6 +52,20 @@ void Food:: generateFood(objPos playpos)
             foodXYS[i].pos->x = rand() % 18 + 1;
             foodXYS[i].pos->x = rand() % 8 + 1; 
             //symbol selection here
+            if(i==3)
+            {
+                bool cointoss = rand()%2;
+                if(cointoss)
+                {
+                    foodXYS[i].symbol='O';
+                }
+            //On the third food selection, there is a fifty percent chance to spawn 
+            //a special character. 
+            }
+            else
+            {
+                foodXYS[i].symbol='o';
+            }
 
         } while ((availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x] != 0));
         availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x]=1;
