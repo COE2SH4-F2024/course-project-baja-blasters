@@ -52,6 +52,7 @@ void Initialize(void)
         f.generateFood(p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
     }
     f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY()); 
+    p.getPlayerArrayList().insertHead(objPos(1, 5, 'D')); 
 }
 
 void GetInput(void)

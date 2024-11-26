@@ -10,11 +10,8 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos = objPos(1, 5, 'D'); 
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
-    player = objPosArrayList(); 
-    
     
 }
 
@@ -29,7 +26,7 @@ objPosArrayList Player::getPlayerArrayList() const{
 objPos Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-    return playerPos.getObjPos();  
+    return player.getHeadElement();  
 }
 
 void Player::updatePlayerDir()
@@ -77,32 +74,32 @@ void Player::movePlayer()
      
     switch(myDir){ 
         case DOWN:
-            playerPos.pos->x ++;  
+            getPlayerPos().pos->x ++;  
             break;
         case UP:
-            playerPos.pos->x --; 
+            getPlayerPos().pos->x --; 
             break; 
         case LEFT:
-            playerPos.pos->y --; 
+            getPlayerPos().pos->y --; 
             break;
         case RIGHT:
-            playerPos.pos->y ++; 
+            getPlayerPos().pos->y ++; 
             break;
         default:
             break; 
     }
     // wraparound feature
-    if(playerPos.pos->x > rowNums-2){
-        playerPos.pos->x = 1; 
+    if(getPlayerPos().pos->x > rowNums-2){
+        getPlayerPos().pos->x = 1; 
     }
-    if(playerPos.pos->x < 1){
-        playerPos.pos->x = rowNums-2;
+    if(getPlayerPos().pos->x < 1){
+        getPlayerPos().pos->x = rowNums-2;
     }
-    if(playerPos.pos->y > colNums-2){
-        playerPos.pos->y = 1;
+    if(getPlayerPos().pos->y > colNums-2){
+        getPlayerPos().pos->y = 1;
     }
-    if(playerPos.pos->y < 1){
-        playerPos.pos->y = colNums-2; 
+    if(getPlayerPos().pos->y < 1){
+        getPlayerPos().pos->y = colNums-2; 
     }
 }
 

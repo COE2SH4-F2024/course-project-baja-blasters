@@ -29,8 +29,7 @@ class Player
         // More methods to be added here
 
     private:
-        objPosArrayList player; 
-        objPos playerPos; // Upgrade this in iteration 3.       
+        objPosArrayList player;       
         enum Dir myDir;
 
         // Need a reference to the Main Game Mechanisms
