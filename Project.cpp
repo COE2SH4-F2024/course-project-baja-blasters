@@ -11,6 +11,7 @@ using namespace std;
 
 GameMechs* g; 
 Player p; 
+objPosArrayList pbody;
 Food f; 
 
 void Initialize(void);
@@ -45,6 +46,7 @@ void Initialize(void)
     MacUILib_clearScreen();
     g = new GameMechs(10, 20); 
     p = Player(g); 
+    pbody.insertHead(p.getPlayerPos());
     f = Food(); 
     for(int i = 0; i < 5; i++){
         f.generateFood(p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
@@ -66,7 +68,21 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    p.movePlayer(); 
+    p.movePlayer();  
+    pbody.insertHead(p.getPlayerPos());
+    
+    for(int k = 0; k < FOOD_SPAWN_CAP; k++)
+    {
+        if(p.getPlayerPos().pos->x!=f.getFoodpos(k).pos->x || p.getPlayerPos().pos->y!=f.getFoodpos(k).pos->y)
+        {
+            pbody.removeTail();
+        }
+        else
+        {
+            f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());
+        }
+    }
+
 }
 
 void DrawScreen(void)
@@ -76,15 +92,27 @@ void DrawScreen(void)
     char board[g->getBoardSizeX()][g->getBoardSizeY()]; 
     for(int i = 0; i < g->getBoardSizeX(); i++){ // x
         for(int j = 0; j < g->getBoardSizeY(); j++){ // y
-            if (i == p.getPlayerPos().pos->x && j == p.getPlayerPos().pos->y){
-                board[i][j] = p.getPlayerPos().symbol;  
-            }
-            else if((i == 0 || i == g->getBoardSizeX()-1 || j == 0 || j == g->getBoardSizeY()-1)){
+            if((i == 0 || i == g->getBoardSizeX()-1 || j == 0 || j == g->getBoardSizeY()-1)){
                 board[i][j] = '#';
             }
             else{
                 board[i][j] = ' '; 
             }
+            if (pbody.getSize()==0)
+            {
+               if(i == pbody.getElement(0).pos->x && j == pbody.getElement(0).pos->y){
+                    board[i][j] = pbody.getElement(0).symbol; 
+                } 
+            }
+            else
+            {
+                for(int k = 0; k < pbody.getSize(); k++){
+                    if(i == pbody.getElement(k).pos->x && j == pbody.getElement(k).pos->y){
+                        board[i][j] = pbody.getElement(k).symbol; 
+                    }
+            }
+            }
+            
             for(int k = 0; k < FOOD_SPAWN_CAP; k++){
                 if(i == f.getFoodpos(k).pos->x && j == f.getFoodpos(k).pos->y){
                     board[i][j] = f.getFoodpos(k).symbol; 
