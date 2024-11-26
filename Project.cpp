@@ -71,16 +71,26 @@ void RunLogic(void)
     p.movePlayer();  
     pbody.insertHead(p.getPlayerPos());
     
+    bool foodeatenflag=false;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
     {
         if(p.getPlayerPos().pos->x!=f.getFoodpos(k).pos->x || p.getPlayerPos().pos->y!=f.getFoodpos(k).pos->y)
         {
-            pbody.removeTail();
+            foodeatenflag = false;
         }
         else
         {
-            f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());
+            foodeatenflag=true;
+            break;
         }
+    }
+    if(foodeatenflag)
+    {
+        f.generateFood(p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());
+    }
+    else
+    {
+        pbody.removeTail();
     }
 
 }

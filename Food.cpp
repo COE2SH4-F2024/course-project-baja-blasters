@@ -59,6 +59,10 @@ void Food:: generateFood(objPos playpos, int xrange, int yrange)
                 {
                     foodXYS[i].symbol='O';
                 }
+                else
+                {
+                    foodXYS[i].symbol='o';
+                }
             //On the third food selection, there is a fifty percent chance to spawn 
             //a special character. 
             }
