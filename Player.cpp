@@ -72,32 +72,32 @@ void Player::movePlayer()
      
     switch(myDir){ 
         case DOWN:
-            playerPos.setObjPos(5, 5, '*'); 
+            playerPos.pos->x ++;  
             break;
         case UP:
-            pos.x --; 
+            playerPos.pos->x --; 
             break; 
         case LEFT:
-            pos.y --; 
+            playerPos.pos->y --; 
             break;
         case RIGHT:
-            pos.y ++; 
+            playerPos.pos->y ++; 
             break;
         default:
             break; 
     }
-
-    if(pos.x > row-2){
-        pos.x = 1; 
+    // wraparound feature
+    if(playerPos.pos->x > rowNums-2){
+        playerPos.pos->x = 1; 
     }
-    if(pos.x < 1){
-        pos.x = row-2;
+    if(playerPos.pos->x < 1){
+        playerPos.pos->x = rowNums-2;
     }
-    if(pos.y > col-2){
-        pos.y = 1;
+    if(playerPos.pos->y > colNums-2){
+        playerPos.pos->y = 1;
     }
-    if(pos.y < 1){
-        pos.y = col-2; 
+    if(playerPos.pos->y < 1){
+        playerPos.pos->y = colNums-2; 
     }
 }
 
