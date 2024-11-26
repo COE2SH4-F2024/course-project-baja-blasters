@@ -5,9 +5,9 @@
 
 objPosArrayList::objPosArrayList()
 {
-    arrayCapacity= ARRAY_MAX_CAP;
+    arrayCapacity= FOOD_SPAWN_CAP;
     listSize=0;
-    aList= new objPos[ARRAY_MAX_CAP];     
+    aList= new objPos[FOOD_SPAWN_CAP];     
 }
 
 objPosArrayList::~objPosArrayList()
@@ -17,8 +17,8 @@ objPosArrayList::~objPosArrayList()
 
 objPosArrayList::objPosArrayList(const objPosArrayList &array)
 {
-    arrayCapacity=ARRAY_MAX_CAP;
-    aList= new objPos[ARRAY_MAX_CAP];
+    arrayCapacity=FOOD_SPAWN_CAP;
+    aList= new objPos[FOOD_SPAWN_CAP];
     listSize=array.getSize();
     for (int i = 0; i < listSize; i++)
     {

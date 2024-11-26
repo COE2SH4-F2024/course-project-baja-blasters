@@ -45,7 +45,7 @@ void testConstructor()
 	bool actualCheck;
 
 	// Then check all elements in the array are zero-initialized via objPos() default constructor
-	for(int i = 0; i < ARRAY_MAX_CAP; i++)
+	for(int i = 0; i < FOOD_SPAWN_CAP; i++)
 	{
 		currentPos = thisList.getElement(i);
 		actualCheck = zeroPos.isPosEqual(&currentPos);
