@@ -50,7 +50,7 @@ void Initialize(void)
     MacUILib_clearScreen();
     o = objPos(); 
     g = GameMechs(row, col); 
-    //p = Player(&g); 
+    p = Player(&g); 
 
     exitFlag = false;
 }
