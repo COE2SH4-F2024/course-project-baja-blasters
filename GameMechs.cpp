@@ -49,9 +49,9 @@ int GameMechs::getScore() const
     return score; 
 }
 
-void GameMechs::incrementScore()
+void GameMechs::incrementScore(int points)
 {
-    score++; 
+    score+=points; 
 }
 
 int GameMechs::getBoardSizeX() const

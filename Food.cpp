@@ -38,10 +38,10 @@ Food& Food::operator=(const Food &food)
 }
 
 
-void Food:: generateFood(objPos playpos)
+void Food:: generateFood(objPos playpos, int xrange, int yrange)
 {
     srand(time(NULL));
-    int availablepos[10][20] = {0};
+    int availablepos[yrange][xrange] = {0};
     availablepos[playpos.pos->x][playpos.pos->y] = 1;
     int i;
     for (i = 0; i < binsize; i++)
@@ -49,8 +49,8 @@ void Food:: generateFood(objPos playpos)
         int j;
         do
         {
-            foodXYS[i].pos->x = rand() % 18 + 1;
-            foodXYS[i].pos->x = rand() % 8 + 1; 
+            foodXYS[i].pos->x = rand() % (xrange-2) + 1;
+            foodXYS[i].pos->y = rand() % (yrange-2) + 1; 
             if(i==3)
             {
                 bool cointoss = rand()%2;
