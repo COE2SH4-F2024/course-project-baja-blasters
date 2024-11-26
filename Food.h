@@ -1,10 +1,13 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
-#define FOOD_SPAWN_CAP = 5;
+#include <time.h>
+#include <stdlib.h>
+#define FOOD_SPAWN_CAP 5
 class Food
 {
     private:
-        objPosArrayList* foodXYS;
+        objPos* foodXYS;
+        int binsize;
     public:
         Food();
         //Constructors
@@ -15,7 +18,7 @@ class Food
         //Copy and copy assignment
 
         void generateFood(objPos playpos);
-        objPos getFoodpos() const;
+        objPos getFoodpos(int index) const;
 };
 
 
