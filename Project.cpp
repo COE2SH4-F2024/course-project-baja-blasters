@@ -47,7 +47,7 @@ void Initialize(void)
     p = Player(g); 
     f = Food(); 
     for(int i = 0; i < 5; i++){
-        f.generateFood(p.getPlayerPos()); 
+        f.generateFood(p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
     }
 }
 

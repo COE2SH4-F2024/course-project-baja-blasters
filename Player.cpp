@@ -10,7 +10,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos = objPos(1, 5, '*'); 
+    playerPos = objPos(1, 5, 'D'); 
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     
