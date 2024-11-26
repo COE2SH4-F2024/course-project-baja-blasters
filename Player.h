@@ -35,7 +35,6 @@ class Player
         GameMechs* mainGameMechsRef;
         int rowNums; 
         int colNums; 
-        char input; 
 };
 
 #endif

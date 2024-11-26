@@ -7,16 +7,10 @@
 using namespace std;
 
 #define DELAY_CONST 100000
-#define row 10
-#define col 20
 
-bool exitFlag; 
 objPos o; 
 GameMechs g; 
 Player p; 
-
-char board[row][col]; 
-
 
 void Initialize(void);
 void GetInput(void);
@@ -31,7 +25,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(g.getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -49,15 +43,16 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
     o = objPos(); 
-    g = GameMechs(row, col); 
+    g = GameMechs(10, 20); 
     p = Player(&g); 
-
-    exitFlag = false;
 }
 
 void GetInput(void)
 {
-   p.updatePlayerDir(); 
+    if(MacUILib_hasChar()){
+        g.setInput(MacUILib_getChar()); 
+    }
+    p.updatePlayerDir(); 
 }
 
 void RunLogic(void)
@@ -69,13 +64,14 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen(); 
     o = p.getPlayerPos();  
+    char board[g.getBoardSizeX()][g.getBoardSizeY()]; 
 
-    for(int i = 0; i < row; i++){ // x
-        for(int j = 0; j < col; j++){ // y
+    for(int i = 0; i < g.getBoardSizeX(); i++){ // x
+        for(int j = 0; j < g.getBoardSizeY(); j++){ // y
             if (i == o.pos->x && j == o.pos->y){
                 board[i][j] = o.symbol;  
             }
-            else if((i == 0 || i == row-1 || j == 0 || j == col-1)){
+            else if((i == 0 || i == g.getBoardSizeX()-1 || j == 0 || j == g.getBoardSizeY()-1)){
                 board[i][j] = '#'; 
             }
             else{

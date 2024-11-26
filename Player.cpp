@@ -10,7 +10,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos = objPos(5, 5, '*'); 
+    playerPos = objPos(1, 5, '*'); 
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     
@@ -33,10 +33,9 @@ objPos Player::getPlayerPos() const
 void Player::updatePlayerDir()
 {
     // PPA3 input processing logic 
-    input = mainGameMechsRef->getInput(); 
-    if(input != 0)  // if not null 
+    if(mainGameMechsRef->getInput() != 0)  // if not null 
     {
-        switch(input)
+        switch(mainGameMechsRef->getInput())
         {                      
             case 32:  // exit
                 mainGameMechsRef->setExitTrue(); 
@@ -65,7 +64,7 @@ void Player::updatePlayerDir()
             default:
                 break;
         }
-        input = 0;
+        mainGameMechsRef->clearInput();
     }
 
 }
