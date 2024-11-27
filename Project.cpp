@@ -11,7 +11,6 @@ using namespace std;
 
 GameMechs* g; 
 Player p; 
-//objPosArrayList p.getPlayerArrayList();
 Food f; 
 
 void Initialize(void);
@@ -47,7 +46,7 @@ void Initialize(void)
     g = new GameMechs(10, 20); 
     p = Player(g); 
     f = Food(); 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < FOOD_SPAWN_CAP; i++){
         f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(),g->getBoardSizeY()); 
     }
     f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
@@ -127,6 +126,7 @@ void DrawScreen(void)
     for(int i = 0; i < FOOD_SPAWN_CAP; i++){
         MacUILib_printf("%d, %d, %c\n", f.getFoodpos(i).pos->x, f.getFoodpos(i).pos->y, f.getFoodpos(i).symbol); 
     }
+    MacUILib_printf("Score: %d", g->getScore()); 
 
      
 }
