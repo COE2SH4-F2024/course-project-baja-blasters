@@ -43,7 +43,7 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    g = new GameMechs(10, 20); 
+    g = new GameMechs(30,60); 
     p = Player(g); 
     f = Food(); 
     for(int i = 0; i < FOOD_SPAWN_CAP; i++){
@@ -81,6 +81,7 @@ void RunLogic(void)
     if(foodeatenflag)
     {
         f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());
+        g->incrementScore(1);
     }
     else
     {

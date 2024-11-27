@@ -20,6 +20,8 @@ class Player
         Player(); 
         Player(GameMechs* thisGMRef);
         ~Player();
+        Player(const Player &pp);
+        Player& operator=(const Player&pp);
 
         objPosArrayList* getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
@@ -30,7 +32,7 @@ class Player
     private:
         objPosArrayList* player;       
         enum Dir myDir;
-
+        
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
         int rowNums; 

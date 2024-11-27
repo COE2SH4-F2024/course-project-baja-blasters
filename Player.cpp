@@ -13,7 +13,7 @@ Player::Player(GameMechs* thisGMRef)
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, 'D')); 
+    (*player).insertHead(objPos(5, 5, '*')); 
     
 }
 
@@ -22,6 +22,29 @@ Player::~Player()
     // delete any heap members here
 }
 
+Player::Player(const Player &pp)
+{
+    mainGameMechsRef=pp.mainGameMechsRef;
+    myDir = STOP;
+    rowNums = mainGameMechsRef->getBoardSizeX(); 
+    colNums = mainGameMechsRef->getBoardSizeY(); 
+    player = new objPosArrayList();
+    (*player).insertHead(objPos(5, 5, '*'));
+}
+Player& Player ::operator=(const Player&pp)
+{
+    if (this!=&pp)
+    {
+        this->mainGameMechsRef=pp.mainGameMechsRef;
+        this->myDir = STOP;
+        this->rowNums = mainGameMechsRef->getBoardSizeX(); 
+        this->colNums = mainGameMechsRef->getBoardSizeY(); 
+        this->player = new objPosArrayList();
+        (*this->player).insertHead(objPos(5, 5, '*'));
+    }
+    return *this;
+    
+}
 objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list

@@ -28,6 +28,31 @@ GameMechs::~GameMechs()
     
 }
 
+GameMechs::GameMechs(const GameMechs &game)
+{
+    boardSizeX = game.getBoardSizeX(); 
+    boardSizeY = game.getBoardSizeY(); 
+    //initialize everything else to null; 
+    input = 0; 
+    exitFlag = false; 
+    loseFlag = false; 
+    score = 0;
+}
+
+GameMechs& GameMechs::operator=(const GameMechs &game)
+{
+    if (this!=&game)
+    {
+        this->boardSizeX = game.getBoardSizeX(); 
+        this->boardSizeY = game.getBoardSizeY(); 
+        //initialize everything else to null; 
+        this->input = 0; 
+        this->exitFlag = false; 
+        this->loseFlag = false; 
+        this->score = 0; 
+    }
+    return *this;
+}
 bool GameMechs::getExitFlagStatus() const
 {
     return exitFlag; 
