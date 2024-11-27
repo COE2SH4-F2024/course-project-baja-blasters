@@ -92,3 +92,15 @@ objPos Food:: getFoodpos(int index) const
     } 
     return returnobj; 
 }
+
+objPos Food ::getFoodpos(int x, int y) const
+{
+    for (int i = 0; i < binsize; i++)
+    {
+        if(x==getFoodpos(i).pos->x && y==getFoodpos(i).pos->y)
+        {
+            return getFoodpos(i);
+        }
+    }
+    return objPos(0,0,0);
+}

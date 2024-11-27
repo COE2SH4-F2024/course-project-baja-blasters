@@ -163,8 +163,18 @@ void Player::increasePlayerlength()
 {
     if(checkFoodconsumption())
     {
+        char collidedFruitSym=getFoodlist()->getFoodpos(player->getHeadElement().pos->x,player->getHeadElement().pos->y).getSymbol();
+
+        if (collidedFruitSym=='o')
+        {
+            mainGameMechsRef->incrementScore(1);
+        }
+        else if (collidedFruitSym=='O')
+        {
+            mainGameMechsRef->incrementScore(5);
+        }
+        
         getFoodlist()->generateFood((getPlayerPos())->getHeadElement(), rowNums, colNums);
-        mainGameMechsRef->incrementScore(1);
     }
     else
     {
