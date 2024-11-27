@@ -7,11 +7,9 @@ Player::Player()
 
 Player::Player(GameMechs* thisGMRef, Food* thisfood)
 {
-    mainGameMechsRef = new GameMechs;
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    mainFoodlist = new Food;
     mainFoodlist = thisfood;
     // more actions to be included
     rowNums = thisGMRef->getBoardSizeX(); 
@@ -120,7 +118,7 @@ void Player::movePlayer()
 
 bool Player::checkFoodconsumption()
 {
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < mainFoodlist->getBinsize(); i++)
     {
         if((*getPlayerPos()).getHeadElement().pos->x==mainFoodlist->getFoodpos(i).pos->x
         && (*getPlayerPos()).getHeadElement().pos->y==mainFoodlist->getFoodpos(i).pos->y)

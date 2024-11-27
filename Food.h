@@ -22,6 +22,8 @@ class Food
 
         void generateFood(objPos playpos, int xrange, int yrange);
         objPos getFoodpos(int index) const;
+
+        int getBinsize();
 };
 
 

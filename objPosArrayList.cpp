@@ -99,7 +99,7 @@ objPos objPosArrayList::getElement(int index) const
     {
         return aList[0];
     }
-    else if(index<=0)
+    else if(index<0)
     {
         index = 0;
     }
