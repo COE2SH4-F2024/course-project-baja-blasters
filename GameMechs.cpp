@@ -22,6 +22,31 @@ GameMechs::GameMechs(int boardX, int boardY)
     score = 0; 
 }
 
+GameMechs& GameMechs:: operator=(const GameMechs&game)
+{
+    if(this!=&game)
+    {
+        this->boardSizeX = game.boardSizeX; 
+        this->boardSizeY = game.boardSizeY; 
+        this->input = game.input; 
+        this->exitFlag = game.exitFlag; 
+        this->loseFlag = game.loseFlag; 
+        this->score = game.score; 
+    }
+    return *this;
+}
+
+
+GameMechs::GameMechs(const GameMechs&game)
+{
+    boardSizeX = game.boardSizeX; 
+    boardSizeY = game.boardSizeY; 
+    input = game.input; 
+    exitFlag = game.exitFlag; 
+    loseFlag = game.loseFlag; 
+    score = game.score; 
+}
+
 // do you need a destructor?
 GameMechs::~GameMechs()
 {

@@ -47,9 +47,6 @@ void Initialize(void)
     g = new GameMechs(10, 20); 
     f = new Food;
     p = Player(g,f);
-    for(int i = 0; i < 5; i++){
-        (*f).generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(),g->getBoardSizeY()); 
-    }//What is this for??
     (*f).generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
