@@ -13,17 +13,17 @@ Player::Player()
     (*player).insertHead(objPos(5, 5, 'D'));
 }
 
-Player::Player(GameMechs* thisGMRef, Food* thisfood)
+Player::Player(GameMechs* thisGMRefd)
 {
     mainGameMechsRef=new GameMechs;
-    mainGameMechsRef = thisGMRef;
+    mainGameMechsRef = thisGMRefd;
     myDir = STOP;
 
     mainFoodlist=new Food;
-    mainFoodlist = thisfood;
+   // mainFoodlist = thisfood;
     // more actions to be included
-    rowNums = thisGMRef->getBoardSizeX(); 
-    colNums = thisGMRef->getBoardSizeY(); 
+    rowNums = thisGMRefd->getBoardSizeX(); 
+    colNums = thisGMRefd->getBoardSizeY(); 
     player = new objPosArrayList();
     (*player).insertHead(objPos(5, 5, 'D')); 
 
@@ -70,7 +70,6 @@ Player::~Player()
 objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-    
 
     return player;  
 }

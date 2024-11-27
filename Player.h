@@ -19,7 +19,7 @@ class Player
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
 
         Player(); 
-        Player(GameMechs* thisGMRef, Food* thisfood);
+        Player(GameMechs* thisGMRef);
         ~Player();
         Player(const Player&playa);
         Player& operator=(const Player&playa);
@@ -33,7 +33,8 @@ class Player
         // More methods to be added here
 
     private:
-        objPosArrayList* player;       
+        objPosArrayList* player;     
+        // objPos playerPos;   
         enum Dir myDir;
         Food* mainFoodlist;
         // Need a reference to the Main Game Mechanisms

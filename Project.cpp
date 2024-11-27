@@ -11,7 +11,6 @@ using namespace std;
 
 GameMechs* g; 
 Player p; 
-//objPosArrayList p.getPlayerArrayList();
 Food* f; 
 
 void Initialize(void);
@@ -43,17 +42,12 @@ int main(void)
 void Initialize(void)
 {
     MacUILib_init();
-    MacUILib_printf("Initialized");
-    MacUILib_clearScreen();
-    MacUILib_printf("cls");
+
     g = new GameMechs(10, 20); 
-    MacUILib_printf("game");
-    f = new Food;
-    MacUILib_printf("food");
-    p = Player(g,f);
-    MacUILib_printf("player");
+    f = new Food; 
     (*f).generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
-}
+    p = Player(g);
+} 
 
 void GetInput(void)
 {
@@ -66,8 +60,8 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    p.movePlayer();
-    p.increasePlayerLength();
+    //p.movePlayer();
+    // p.increasePlayerLength();
     
     /*bool foodeatenflag=false;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
@@ -143,8 +137,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     delete g; 
-    delete f;
-    //MacUILib_clearScreen();    
+    delete f;   
 
     MacUILib_uninit();
 }
