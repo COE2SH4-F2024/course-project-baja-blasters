@@ -1,75 +1,31 @@
 #include "Player.h"
 
-Player::Player()
-{
-    mainGameMechsRef = new GameMechs();
-    myDir = STOP;
+Player::Player(){
 
-    mainFoodlist = new Food;
-    // more actions to be included
-    rowNums = mainGameMechsRef->getBoardSizeX(); 
-    colNums = mainGameMechsRef->getBoardSizeY(); 
-    player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, 'D'));
 }
 
-Player::Player(GameMechs* thisGMRefd)
+Player::Player(GameMechs* thisGMRef)
 {
-    mainGameMechsRef=new GameMechs;
-    mainGameMechsRef = thisGMRefd;
+    mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    mainFoodlist=new Food;
-   // mainFoodlist = thisfood;
     // more actions to be included
-    rowNums = thisGMRefd->getBoardSizeX(); 
-    colNums = thisGMRefd->getBoardSizeY(); 
+    rowNums = thisGMRef->getBoardSizeX(); 
+    colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
     (*player).insertHead(objPos(5, 5, 'D')); 
-
     
 }
 
-Player::Player(const Player& playa)
-{
-    mainGameMechsRef=new GameMechs(*playa.mainGameMechsRef);
-    myDir = STOP;
-
-    mainFoodlist=new Food(*playa.mainFoodlist);
-    // more actions to be included
-    rowNums = playa.mainGameMechsRef->getBoardSizeX(); 
-    colNums = playa.mainGameMechsRef->getBoardSizeY(); 
-    player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, 'D'));
-}
-
-Player& Player::operator=(const Player&playa)
-{
-    if (this!=&playa)
-    {
-        this->mainGameMechsRef=new GameMechs(*playa.mainGameMechsRef);
-        this->myDir = STOP;
-
-        this->mainFoodlist=new Food(*playa.mainFoodlist);
-        // more actions to be included
-        this->rowNums = playa.mainGameMechsRef->getBoardSizeX(); 
-        this->colNums = playa.mainGameMechsRef->getBoardSizeY(); 
-        this->player = new objPosArrayList();
-        (*(this->player)).insertHead(objPos(5, 5, 'D'));
-    }
-    return *this;
-}
 Player::~Player()
 {
     // delete any heap members here
-    delete player;
-    delete mainGameMechsRef;
-    delete mainFoodlist;
 }
 
 objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
+    
 
     return player;  
 }
@@ -149,31 +105,6 @@ void Player::movePlayer()
         y = colNums-2; 
     }
     (*getPlayerPos()).insertHead(objPos(x,y,(*getPlayerPos()).getHeadElement().symbol));
-    increasePlayerLength();
 }
 
 // More methods to be added
-
-bool Player::checkFoodconsumption()
-{
-    for (int i = 0; i < mainFoodlist->getBinsize(); i++)
-    {
-        if((*getPlayerPos()).getHeadElement().pos->x==mainFoodlist->getFoodpos(i).pos->x
-        && (*getPlayerPos()).getHeadElement().pos->y==mainFoodlist->getFoodpos(i).pos->y)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-void Player::increasePlayerLength()
-{
-    if (checkFoodconsumption())
-    {
-        mainFoodlist->generateFood((*getPlayerPos()).getHeadElement(),rowNums,colNums);
-    }
-    else
-    {
-        (*getPlayerPos()).removeTail();
-    }
-}

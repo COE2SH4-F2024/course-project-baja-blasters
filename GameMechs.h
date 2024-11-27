@@ -20,14 +20,14 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
+
+        objPos food;
+
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
         ~GameMechs(); // is this one needed at all? Why or why not?
-        GameMechs& operator=(const GameMechs&game);
-        GameMechs(const GameMechs&game);
-
-
+        
         bool getExitFlagStatus() const; 
         void setExitTrue();
         bool getLoseFlagStatus() const;

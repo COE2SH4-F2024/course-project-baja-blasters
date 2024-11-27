@@ -17,7 +17,6 @@ Food::~Food()
 Food::Food(const Food &food)
 {
     foodXYS= new objPos[binsize];
-    binsize = FOOD_SPAWN_CAP;
     for (int i = 0; i< binsize; i++)
     {
         foodXYS[i]=food.foodXYS[i];
@@ -29,7 +28,6 @@ Food& Food::operator=(const Food &food)
 {
     if (this!=&food)
     {
-        binsize = FOOD_SPAWN_CAP;
         for (int i = 0; i < binsize; i++)
         {
             this->foodXYS[i]=food.foodXYS[i];
@@ -93,9 +91,4 @@ objPos Food:: getFoodpos(int index) const
         returnobj=foodXYS[binsize-1];
     } 
     return returnobj; 
-}
-
-int Food::getBinsize()
-{
-    return binsize;
 }

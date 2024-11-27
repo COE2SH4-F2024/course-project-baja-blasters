@@ -1,6 +1,3 @@
-#ifndef FOOD_H
-#define FOOD_H
-
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include <time.h>
@@ -22,12 +19,10 @@ class Food
 
         void generateFood(objPos playpos, int xrange, int yrange);
         objPos getFoodpos(int index) const;
-
-        int getBinsize();
 };
 
 
 // Proposition: include a GameMechs pointer so we can change up
 // the dimensions of availablepos[]. 
 
-#endif
+
