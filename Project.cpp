@@ -43,10 +43,15 @@ int main(void)
 void Initialize(void)
 {
     MacUILib_init();
+    MacUILib_printf("Initialized");
     MacUILib_clearScreen();
+    MacUILib_printf("cls");
     g = new GameMechs(10, 20); 
+    MacUILib_printf("game");
     f = new Food;
+    MacUILib_printf("food");
     p = Player(g,f);
+    MacUILib_printf("player");
     (*f).generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
