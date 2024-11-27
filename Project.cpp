@@ -48,10 +48,9 @@ void Initialize(void)
     p = Player(g); 
     f = Food(); 
     for(int i = 0; i < 5; i++){
-        f.generateFood(*p.getPlayerPos(), g->getBoardSizeX(),g->getBoardSizeY()); 
+        f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(),g->getBoardSizeY()); 
     }
-    f.generateFood(*p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY()); 
-    //p.getPlayerArrayList().insertHead(objPos(1, 5, 'D')); 
+    f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
 void GetInput(void)
@@ -65,13 +64,12 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    p.movePlayer();  
-    p.getPlayerArrayList().insertHead(*p.getPlayerPos());
+    p.movePlayer();
     
     bool foodeatenflag=false;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
     {
-        if((*p.getPlayerPos()).pos->x!=f.getFoodpos(k).pos->x || (*p.getPlayerPos()).pos->y!=f.getFoodpos(k).pos->y)
+        if(((p.getPlayerPos())->getHeadElement()).pos->x!=f.getFoodpos(k).pos->x || ((p.getPlayerPos())->getHeadElement()).pos->y!=f.getFoodpos(k).pos->y)
         {
             foodeatenflag = false;
         }
@@ -83,11 +81,11 @@ void RunLogic(void)
     }
     if(foodeatenflag)
     {
-        f.generateFood(*p.getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());
+        f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());
     }
     else
     {
-        p.getPlayerArrayList().removeTail();
+        (p.getPlayerPos())->removeTail();
     }
 
 }
@@ -99,26 +97,22 @@ void DrawScreen(void)
     char board[g->getBoardSizeX()][g->getBoardSizeY()]; 
     for(int i = 0; i < g->getBoardSizeX(); i++){ // x
         for(int j = 0; j < g->getBoardSizeY(); j++){ // y
-            if((i == 0 || i == g->getBoardSizeX()-1 || j == 0 || j == g->getBoardSizeY()-1)){
-                board[i][j] = '#';
-            }
-            else{
-                board[i][j] = ' '; 
-            }
-            if (p.getPlayerArrayList().getSize()==0)
+            if((i == 0 || i == g->getBoardSizeX()-1 || j == 0 || j == g->getBoardSizeY()-1))
             {
-               if(i == p.getPlayerArrayList().getElement(0).pos->x && j == p.getPlayerArrayList().getElement(0).pos->y){
-                    board[i][j] = p.getPlayerArrayList().getElement(0).symbol; 
-                } 
+                board[i][j] = '#';
             }
             else
             {
-                for(int k = 0; k < p.getPlayerArrayList().getSize(); k++){
-                    if(i == p.getPlayerArrayList().getElement(k).pos->x && j == p.getPlayerArrayList().getElement(k).pos->y){
-                        board[i][j] = p.getPlayerArrayList().getElement(k).symbol; 
-                    }
+                board[i][j] = ' '; 
             }
+       
+            for(int k = 0; k < (p.getPlayerPos())->getSize(); k++)
+            {
+                if(i == (p.getPlayerPos())->getElement(k).pos->x && j == (p.getPlayerPos())->getElement(k).pos->y){
+                    board[i][j] = (p.getPlayerPos())->getElement(k).symbol; 
+                }
             }
+            
             
             for(int k = 0; k < FOOD_SPAWN_CAP; k++){
                 if(i == f.getFoodpos(k).pos->x && j == f.getFoodpos(k).pos->y){
@@ -129,7 +123,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n"); 
     }  
-    MacUILib_printf("%d, %d, %c\n", (*p.getPlayerPos()).pos->x, (*p.getPlayerPos()).pos->y, (*p.getPlayerPos()).symbol); 
+    MacUILib_printf("%d, %d, %c\n", ((p.getPlayerPos())->getHeadElement()).pos->x, ((p.getPlayerPos())->getHeadElement()).pos->y, ((p.getPlayerPos())->getHeadElement()).symbol); 
     for(int i = 0; i < FOOD_SPAWN_CAP; i++){
         MacUILib_printf("%d, %d, %c\n", f.getFoodpos(i).pos->x, f.getFoodpos(i).pos->y, f.getFoodpos(i).symbol); 
     }

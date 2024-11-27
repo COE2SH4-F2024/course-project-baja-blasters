@@ -12,7 +12,8 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
-    player.insertHead(objPos(5, 5, 'D')); 
+    player = new objPosArrayList();
+    (*player).insertHead(objPos(5, 5, 'D')); 
     
 }
 
@@ -20,15 +21,13 @@ Player::~Player()
 {
     // delete any heap members here
 }
-objPosArrayList Player::getPlayerArrayList() const{
-    return player; 
-}
 
-objPos* Player::getPlayerPos() const
+objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-    objPos* oPtr = &player.getHeadElement(); 
-    return oPtr;   
+    
+
+    return player;  
 }
 
 void Player::updatePlayerDir()
@@ -73,36 +72,39 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-     
+    int x = (*getPlayerPos()).getHeadElement().pos->x;
+    int y = (*getPlayerPos()).getHeadElement().pos->y;
     switch(myDir){ 
         case DOWN:
-            (*getPlayerPos()).pos->x ++;  
+             x++;  
             break;
         case UP:
-            (*getPlayerPos()).pos->x --; 
+            x --; 
             break; 
         case LEFT:
-            (*getPlayerPos()).pos->y --; 
+            y --; 
             break;
         case RIGHT:
-            (*getPlayerPos()).pos->y ++; 
+            y ++; 
             break;
         default:
             break; 
     }
+    
     // wraparound feature
-    if((*getPlayerPos()).pos->x > rowNums-2){
-        (*getPlayerPos()).pos->x = 1; 
+    if(x > rowNums-2){
+        x = 1; 
     }
-    if((*getPlayerPos()).pos->x < 1){
-        (*getPlayerPos()).pos->x = rowNums-2;
+    if(x < 1){
+        x = rowNums-2;
     }
-    if((*getPlayerPos()).pos->y > colNums-2){
-        (*getPlayerPos()).pos->y = 1;
+    if(y > colNums-2){
+        y = 1;
     }
-    if((*getPlayerPos()).pos->y < 1){
-        (*getPlayerPos()).pos->y = colNums-2; 
+    if(y < 1){
+        y = colNums-2; 
     }
+    (*getPlayerPos()).insertHead(objPos(x,y,(*getPlayerPos()).getHeadElement().symbol));
 }
 
 // More methods to be added
