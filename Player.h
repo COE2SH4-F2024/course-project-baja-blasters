@@ -21,6 +21,8 @@ class Player
         Player(); 
         Player(GameMechs* thisGMRef, Food* thisfood);
         ~Player();
+        Player(const Player&playa);
+        Player& operator=(const Player&playa);
 
         objPosArrayList* getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();

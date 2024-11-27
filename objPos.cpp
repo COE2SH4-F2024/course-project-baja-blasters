@@ -35,7 +35,8 @@ objPos& objPos:: operator=(const objPos &objectpos)
 {
     if(this!=&objectpos)
     {
-        *pos=*objectpos.pos;
+        delete this->pos;
+        this->pos = new Pos;
         this->pos->x=objectpos.pos->x;
         this->pos->y=objectpos.pos->y;
         this->symbol=objectpos.symbol;

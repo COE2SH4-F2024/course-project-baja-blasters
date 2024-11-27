@@ -2,7 +2,15 @@
 
 Player::Player()
 {
+    mainGameMechsRef = new GameMechs();
+    myDir = STOP;
 
+    mainFoodlist = new Food;
+    // more actions to be included
+    rowNums = mainGameMechsRef->getBoardSizeX(); 
+    colNums = mainGameMechsRef->getBoardSizeY(); 
+    player = new objPosArrayList();
+    (*player).insertHead(objPos(5, 5, 'D'));
 }
 
 Player::Player(GameMechs* thisGMRef, Food* thisfood)
@@ -20,6 +28,15 @@ Player::Player(GameMechs* thisGMRef, Food* thisfood)
     
 }
 
+Player::Player(const Player& playa)
+{
+    
+}
+
+Player& Player::operator=(const Player&playa)
+{
+
+}
 Player::~Player()
 {
     // delete any heap members here
