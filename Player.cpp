@@ -113,6 +113,7 @@ void Player::movePlayer()
         y = colNums-2; 
     }
     (*getPlayerPos()).insertHead(objPos(x,y,(*getPlayerPos()).getHeadElement().symbol));
+    increasePlayerLength();
 }
 
 // More methods to be added

@@ -45,10 +45,11 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
     g = new GameMechs(10, 20); 
+    f = new Food;
     p = Player(g,f);
     for(int i = 0; i < 5; i++){
         (*f).generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(),g->getBoardSizeY()); 
-    }
+    }//What is this for??
     (*f).generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
@@ -140,6 +141,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     delete g; 
+    delete f;
     //MacUILib_clearScreen();    
 
     MacUILib_uninit();
