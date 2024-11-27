@@ -15,9 +15,11 @@ Player::Player()
 
 Player::Player(GameMechs* thisGMRef, Food* thisfood)
 {
+    mainGameMechsRef=new GameMechs;
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
+    mainFoodlist=new Food;
     mainFoodlist = thisfood;
     // more actions to be included
     rowNums = thisGMRef->getBoardSizeX(); 
@@ -30,12 +32,32 @@ Player::Player(GameMechs* thisGMRef, Food* thisfood)
 
 Player::Player(const Player& playa)
 {
-    
+    mainGameMechsRef=new GameMechs(*playa.mainGameMechsRef);
+    myDir = STOP;
+
+    mainFoodlist=new Food(*playa.mainFoodlist);
+    // more actions to be included
+    rowNums = playa.mainGameMechsRef->getBoardSizeX(); 
+    colNums = playa.mainGameMechsRef->getBoardSizeY(); 
+    player = new objPosArrayList();
+    (*player).insertHead(objPos(5, 5, 'D'));
 }
 
 Player& Player::operator=(const Player&playa)
 {
+    if (this!=&playa)
+    {
+        this->mainGameMechsRef=new GameMechs(*playa.mainGameMechsRef);
+        this->myDir = STOP;
 
+        this->mainFoodlist=new Food(*playa.mainFoodlist);
+        // more actions to be included
+        this->rowNums = playa.mainGameMechsRef->getBoardSizeX(); 
+        this->colNums = playa.mainGameMechsRef->getBoardSizeY(); 
+        this->player = new objPosArrayList();
+        (*(this->player)).insertHead(objPos(5, 5, 'D'));
+    }
+    return *this;
 }
 Player::~Player()
 {
