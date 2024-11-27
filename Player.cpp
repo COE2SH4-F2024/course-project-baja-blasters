@@ -1,25 +1,33 @@
 #include "Player.h"
 
-Player::Player(){
+Player::Player()
+{
 
 }
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisfood)
 {
+    mainGameMechsRef = new GameMechs;
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
+    mainFoodlist = new Food;
+    mainFoodlist = thisfood;
     // more actions to be included
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
     (*player).insertHead(objPos(5, 5, 'D')); 
+
     
 }
 
 Player::~Player()
 {
     // delete any heap members here
+    delete player;
+    delete mainGameMechsRef;
+    delete mainFoodlist;
 }
 
 objPosArrayList* Player::getPlayerPos() const
@@ -108,3 +116,27 @@ void Player::movePlayer()
 }
 
 // More methods to be added
+
+bool Player::checkFoodconsumption()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        if((*getPlayerPos()).getHeadElement().pos->x==mainFoodlist->getFoodpos(i).pos->x
+        && (*getPlayerPos()).getHeadElement().pos->y==mainFoodlist->getFoodpos(i).pos->y)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+void Player::increasePlayerLength()
+{
+    if (checkFoodconsumption())
+    {
+        mainFoodlist->generateFood((*getPlayerPos()).getHeadElement(),rowNums,colNums);
+    }
+    else
+    {
+        (*getPlayerPos()).removeTail();
+    }
+}
