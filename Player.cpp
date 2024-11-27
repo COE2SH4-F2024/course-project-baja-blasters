@@ -4,11 +4,11 @@ Player::Player(){
 
 }
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef,Food*thisFood)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-
+    foodlist=thisFood;
     // more actions to be included
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
@@ -25,6 +25,7 @@ Player::~Player()
 Player::Player(const Player &pp)
 {
     mainGameMechsRef=pp.mainGameMechsRef;
+    foodlist = pp.foodlist;
     myDir = STOP;
     rowNums = mainGameMechsRef->getBoardSizeX(); 
     colNums = mainGameMechsRef->getBoardSizeY(); 
@@ -36,6 +37,7 @@ Player& Player ::operator=(const Player&pp)
     if (this!=&pp)
     {
         this->mainGameMechsRef=pp.mainGameMechsRef;
+        this->foodlist=pp.foodlist;
         this->myDir = STOP;
         this->rowNums = mainGameMechsRef->getBoardSizeX(); 
         this->colNums = mainGameMechsRef->getBoardSizeY(); 
@@ -131,3 +133,8 @@ void Player::movePlayer()
 }
 
 // More methods to be added
+
+Food* Player:: getFoodlist() const
+{
+    return foodlist;
+}

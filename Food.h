@@ -1,3 +1,6 @@
+#ifndef FOOD_H
+#define FOOD_H
+
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include <time.h>
@@ -26,3 +29,4 @@ class Food
 // the dimensions of availablepos[]. 
 
 
+#endif

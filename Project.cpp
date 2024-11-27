@@ -10,8 +10,8 @@ using namespace std;
 #define DELAY_CONST 100000
 
 GameMechs* g; 
-Player p; 
-Food f; 
+Player* p; 
+Food* f; 
 
 void Initialize(void);
 void GetInput(void);
@@ -43,32 +43,29 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    g = new GameMechs(30,60); 
-    p = Player(g); 
-    f = Food(); 
-    for(int i = 0; i < FOOD_SPAWN_CAP; i++){
-        f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(),g->getBoardSizeY()); 
-    }
-    f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
+    g = new GameMechs(10, 20); 
+    f = new Food(); 
+    p = new Player(g,f); 
+    p->getFoodlist()->generateFood((p->getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
 void GetInput(void)
 {
     if(MacUILib_hasChar()){
         g->setInput(MacUILib_getChar()); 
-        p.updatePlayerDir();
+        p->updatePlayerDir();
         g->clearInput(); 
     }
 }
 
 void RunLogic(void)
 {
-    p.movePlayer();
+    p->movePlayer();
     
     bool foodeatenflag=false;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
     {
-        if(((p.getPlayerPos())->getHeadElement()).pos->x!=f.getFoodpos(k).pos->x || ((p.getPlayerPos())->getHeadElement()).pos->y!=f.getFoodpos(k).pos->y)
+        if(((p->getPlayerPos())->getHeadElement()).pos->x!=p->getFoodlist()->getFoodpos(k).pos->x || ((p->getPlayerPos())->getHeadElement()).pos->y!=p->getFoodlist()->getFoodpos(k).pos->y)
         {
             foodeatenflag = false;
         }
@@ -80,12 +77,12 @@ void RunLogic(void)
     }
     if(foodeatenflag)
     {
-        f.generateFood((p.getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());
+        p->getFoodlist()->generateFood((p->getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());
         g->incrementScore(1);
     }
     else
     {
-        (p.getPlayerPos())->removeTail();
+        (p->getPlayerPos())->removeTail();
     }
 
 }
@@ -106,26 +103,26 @@ void DrawScreen(void)
                 board[i][j] = ' '; 
             }
        
-            for(int k = 0; k < (p.getPlayerPos())->getSize(); k++)
+            for(int k = 0; k < (p->getPlayerPos())->getSize(); k++)
             {
-                if(i == (p.getPlayerPos())->getElement(k).pos->x && j == (p.getPlayerPos())->getElement(k).pos->y){
-                    board[i][j] = (p.getPlayerPos())->getElement(k).symbol; 
+                if(i == (p->getPlayerPos())->getElement(k).pos->x && j == (p->getPlayerPos())->getElement(k).pos->y){
+                    board[i][j] = (p->getPlayerPos())->getElement(k).symbol; 
                 }
             }
             
             
             for(int k = 0; k < FOOD_SPAWN_CAP; k++){
-                if(i == f.getFoodpos(k).pos->x && j == f.getFoodpos(k).pos->y){
-                    board[i][j] = f.getFoodpos(k).symbol; 
+                if(i == p->getFoodlist()->getFoodpos(k).pos->x && j == p->getFoodlist()->getFoodpos(k).pos->y){
+                    board[i][j] = p->getFoodlist()->getFoodpos(k).symbol; 
                 }
             }
             MacUILib_printf("%c", board[i][j]); 
         }
         MacUILib_printf("\n"); 
     }  
-    MacUILib_printf("%d, %d, %c\n", ((p.getPlayerPos())->getHeadElement()).pos->x, ((p.getPlayerPos())->getHeadElement()).pos->y, ((p.getPlayerPos())->getHeadElement()).symbol); 
+    MacUILib_printf("%d, %d, %c\n", ((p->getPlayerPos())->getHeadElement()).pos->x, ((p->getPlayerPos())->getHeadElement()).pos->y, ((p->getPlayerPos())->getHeadElement()).symbol); 
     for(int i = 0; i < FOOD_SPAWN_CAP; i++){
-        MacUILib_printf("%d, %d, %c\n", f.getFoodpos(i).pos->x, f.getFoodpos(i).pos->y, f.getFoodpos(i).symbol); 
+        MacUILib_printf("%d, %d, %c\n", p->getFoodlist()->getFoodpos(i).pos->x, p->getFoodlist()->getFoodpos(i).pos->y, p->getFoodlist()->getFoodpos(i).symbol); 
     }
     MacUILib_printf("Score: %d", g->getScore()); 
 
