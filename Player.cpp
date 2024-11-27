@@ -19,6 +19,7 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
 
 Player::~Player()
 {
+    delete player;
     // delete any heap members here
 }
 
@@ -130,6 +131,7 @@ void Player::movePlayer()
         y = colNums-2; 
     }
     (*getPlayerPos()).insertHead(objPos(x,y,(*getPlayerPos()).getHeadElement().symbol));
+    increasePlayerlength();
 }
 
 // More methods to be added
@@ -137,4 +139,35 @@ void Player::movePlayer()
 Food* Player:: getFoodlist() const
 {
     return foodlist;
+}
+
+bool Player::checkFoodconsumption()
+{
+    bool foodeatenflag;
+    for(int k = 0; k < FOOD_SPAWN_CAP; k++)
+    {
+        if(((getPlayerPos())->getHeadElement()).pos->x!=getFoodlist()->getFoodpos(k).pos->x || ((getPlayerPos())->getHeadElement()).pos->y!=getFoodlist()->getFoodpos(k).pos->y)
+        {
+            foodeatenflag = false;
+        }
+        else
+        {
+            foodeatenflag=true;
+            break;
+        }
+    }
+    return foodeatenflag;
+}
+
+void Player::increasePlayerlength()
+{
+    if(checkFoodconsumption())
+    {
+        getFoodlist()->generateFood((getPlayerPos())->getHeadElement(), rowNums, colNums);
+        mainGameMechsRef->incrementScore(1);
+    }
+    else
+    {
+        (getPlayerPos())->removeTail();
+    }
 }

@@ -28,7 +28,8 @@ class Player
         void updatePlayerDir();
         void movePlayer();
         Food* getFoodlist()const;
-        void generateFood(objPos Playapos);
+        bool checkFoodconsumption();
+        void increasePlayerlength();
 
         // More methods to be added here
 

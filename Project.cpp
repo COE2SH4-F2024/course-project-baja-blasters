@@ -61,30 +61,6 @@ void GetInput(void)
 void RunLogic(void)
 {
     p->movePlayer();
-    
-    bool foodeatenflag=false;
-    for(int k = 0; k < FOOD_SPAWN_CAP; k++)
-    {
-        if(((p->getPlayerPos())->getHeadElement()).pos->x!=p->getFoodlist()->getFoodpos(k).pos->x || ((p->getPlayerPos())->getHeadElement()).pos->y!=p->getFoodlist()->getFoodpos(k).pos->y)
-        {
-            foodeatenflag = false;
-        }
-        else
-        {
-            foodeatenflag=true;
-            break;
-        }
-    }
-    if(foodeatenflag)
-    {
-        p->getFoodlist()->generateFood((p->getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());
-        g->incrementScore(1);
-    }
-    else
-    {
-        (p->getPlayerPos())->removeTail();
-    }
-
 }
 
 void DrawScreen(void)
@@ -138,6 +114,8 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     delete g; 
+    delete f;
+    delete p;
     //MacUILib_clearScreen();    
 
     MacUILib_uninit();
