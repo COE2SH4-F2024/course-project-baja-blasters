@@ -34,7 +34,9 @@ class Player
         // More methods to be added here
 
     private:
-        objPosArrayList* player;       
+        objPosArrayList* player;
+        // char headsymbol;
+        // char bodysymbol;       
         enum Dir myDir;
         Food* foodlist;
         // Need a reference to the Main Game Mechanisms

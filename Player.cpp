@@ -13,8 +13,7 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, '+')); 
-    
+    (*player).insertHead(objPos(5, 5, '@'));   
 }
 
 Player::~Player()
@@ -31,7 +30,7 @@ Player::Player(const Player &pp)
     rowNums = mainGameMechsRef->getBoardSizeX(); 
     colNums = mainGameMechsRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, '+'));
+    (*player).insertHead(objPos(5, 5, '@'));
 }
 Player& Player ::operator=(const Player&pp)
 {
@@ -41,9 +40,10 @@ Player& Player ::operator=(const Player&pp)
         this->foodlist=pp.foodlist;
         this->myDir = STOP;
         this->rowNums = mainGameMechsRef->getBoardSizeX(); 
-        this->colNums = mainGameMechsRef->getBoardSizeY(); 
+        this->colNums = mainGameMechsRef->getBoardSizeY();
+        delete this->player; 
         this->player = new objPosArrayList();
-        (*this->player).insertHead(objPos(5, 5, '+'));
+        this->getPlayerPos()->insertHead(objPos(5, 5, '@')); 
     }
     return *this;
     
@@ -100,6 +100,8 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
     int x = (*getPlayerPos()).getHeadElement().pos->x;
     int y = (*getPlayerPos()).getHeadElement().pos->y;
+    (*getPlayerPos()).removeHead();
+    (*getPlayerPos()).insertHead(objPos(x,y,'+'));
     switch(myDir){ 
         case DOWN:
              x++;  
@@ -130,7 +132,7 @@ void Player::movePlayer()
     if(y < 1){
         y = colNums-2; 
     }
-    (*getPlayerPos()).insertHead(objPos(x,y,(*getPlayerPos()).getHeadElement().symbol));
+    (*getPlayerPos()).insertHead(objPos(x,y,'@'));
     increasePlayerlength();
     if (checkselfcollision())
     {
