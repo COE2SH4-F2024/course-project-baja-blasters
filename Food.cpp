@@ -5,6 +5,7 @@ Food::Food()
 {
     binsize= FOOD_SPAWN_CAP;
     foodXYS= new objPos[FOOD_SPAWN_CAP];
+    foodoscillator =true;
 }
 
 //Destructor        
@@ -21,7 +22,7 @@ Food::Food(const Food &food)
     {
         foodXYS[i]=food.foodXYS[i];
     }
-    
+    foodoscillator = food.foodoscillator;
 }
 
 Food& Food::operator=(const Food &food)
@@ -32,7 +33,6 @@ Food& Food::operator=(const Food &food)
         {
             this->foodXYS[i]=food.foodXYS[i];
         }
-        
     }
     return *this;
 }
@@ -106,4 +106,16 @@ objPos Food ::getFoodpos(int x, int y) const
         }
     }
     return objPos(0,0,0);
+}
+
+bool Food::switchoscillator()
+{
+    if(foodoscillator)
+    {
+        foodoscillator = false;
+    }
+    else
+    {
+        foodoscillator = true;
+    }
 }

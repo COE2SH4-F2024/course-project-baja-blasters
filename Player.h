@@ -5,6 +5,7 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include "Food.h"
+#include <iostream>
 
 class Player
 {
@@ -35,8 +36,8 @@ class Player
 
     private:
         objPosArrayList* player;
-        // char headsymbol;
-        // char bodysymbol;       
+        char headsymbol;
+        char bodysymbol;       
         enum Dir myDir;
         Food* foodlist;
         // Need a reference to the Main Game Mechanisms

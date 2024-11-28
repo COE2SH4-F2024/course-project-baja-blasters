@@ -1,6 +1,7 @@
 #include "Player.h"
 
 Player::Player(){
+    
 
 }
 
@@ -13,7 +14,10 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, '@'));   
+    headsymbol = '@';
+    bodysymbol = '+';
+    (*player).insertHead(objPos(5, 5, headsymbol));
+       
 }
 
 Player::~Player()
@@ -30,7 +34,9 @@ Player::Player(const Player &pp)
     rowNums = mainGameMechsRef->getBoardSizeX(); 
     colNums = mainGameMechsRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, '@'));
+    headsymbol = pp.headsymbol;
+    bodysymbol = pp.bodysymbol;
+    (*player).insertHead(objPos(5, 5, headsymbol));
 }
 Player& Player ::operator=(const Player&pp)
 {
@@ -43,7 +49,9 @@ Player& Player ::operator=(const Player&pp)
         this->colNums = mainGameMechsRef->getBoardSizeY();
         delete this->player; 
         this->player = new objPosArrayList();
-        this->getPlayerPos()->insertHead(objPos(5, 5, '@')); 
+        this->getPlayerPos()->insertHead(objPos(5, 5, headsymbol));
+        this->headsymbol = pp.headsymbol;
+        this->bodysymbol = pp.bodysymbol;
     }
     return *this;
     
@@ -101,7 +109,7 @@ void Player::movePlayer()
     int x = (*getPlayerPos()).getHeadElement().pos->x;
     int y = (*getPlayerPos()).getHeadElement().pos->y;
     (*getPlayerPos()).removeHead();
-    (*getPlayerPos()).insertHead(objPos(x,y,'+'));
+    (*getPlayerPos()).insertHead(objPos(x,y,bodysymbol));
     switch(myDir){ 
         case DOWN:
              x++;  
@@ -132,7 +140,7 @@ void Player::movePlayer()
     if(y < 1){
         y = colNums-2; 
     }
-    (*getPlayerPos()).insertHead(objPos(x,y,'@'));
+    (*getPlayerPos()).insertHead(objPos(x,y,headsymbol));
     increasePlayerlength();
     if (checkselfcollision())
     {

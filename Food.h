@@ -11,6 +11,7 @@ class Food
     private:
         objPos* foodXYS;
         int binsize;
+        bool foodoscillator;
     public:
         Food();
         //Constructors
@@ -20,6 +21,8 @@ class Food
         Food& operator=(const Food &food); 
         //Copy and copy assignment
 
+        
+        bool switchoscillator();
         void generateFood(objPosArrayList playpos, int xrange, int yrange);
         objPos getFoodpos(int index) const;
         objPos getFoodpos(int x, int y) const;
