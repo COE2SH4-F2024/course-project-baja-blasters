@@ -26,7 +26,7 @@ int main(void)
 
     Initialize();
 
-    while(g->getExitFlagStatus() == false)  
+    while(!g->getExitFlagStatus() && !g->getLoseFlagStatus())  
     {
         GetInput();
         RunLogic();
@@ -104,7 +104,16 @@ void DrawScreen(void)
     //     MacUILib_printf("%d, %d, %c, ", p->getPlayerPos()->getElement(i).pos->x, p->getPlayerPos()->getElement(i).pos->y, p->getPlayerPos()->getElement(i).symbol); 
     //     MacUILib_printf("\n"); 
     // }
-    MacUILib_printf("Score: %d", g->getScore()); 
+    if(!g->getLoseFlagStatus() && !g->getExitFlagStatus()){
+        MacUILib_printf("Score: %d", g->getScore()); 
+    }
+    
+    else if(g->getLoseFlagStatus()){
+        MacUILib_printf("Game Over! You lost, your final score is: %d", g->getScore()); 
+    }
+    else if(g->getExitFlagStatus()){
+        MacUILib_printf("Why'd you stop? huh?"); 
+    }
 
      
 }

@@ -134,7 +134,7 @@ void Player::movePlayer()
     increasePlayerlength();
     if (checkselfcollision())
     {
-        mainGameMechsRef->setExitTrue();
+        //mainGameMechsRef->setExitTrue();
         mainGameMechsRef->setLoseFlag();
     }
     
