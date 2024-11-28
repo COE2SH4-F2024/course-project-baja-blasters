@@ -6,6 +6,9 @@ Food::Food()
     binsize= FOOD_SPAWN_CAP;
     foodXYS= new objPos[FOOD_SPAWN_CAP];
     foodoscillator =true;
+    specialfood = false;
+    normalfoodsym = 'o';
+    specialfoodsym = 'O';
 }
 
 //Destructor        
@@ -23,6 +26,9 @@ Food::Food(const Food &food)
         foodXYS[i]=food.foodXYS[i];
     }
     foodoscillator = food.foodoscillator;
+    specialfood = food.specialfood;
+    normalfoodsym = food.normalfoodsym;
+    specialfoodsym = food.specialfoodsym;
 }
 
 Food& Food::operator=(const Food &food)
@@ -33,6 +39,10 @@ Food& Food::operator=(const Food &food)
         {
             this->foodXYS[i]=food.foodXYS[i];
         }
+        this->foodoscillator = food.foodoscillator;
+        this->specialfood = food.specialfood;
+        this->normalfoodsym = food.normalfoodsym;
+        this->specialfoodsym = food.specialfoodsym;
     }
     return *this;
 }
@@ -60,18 +70,20 @@ void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
                 bool cointoss = rand()%2;
                 if(cointoss)
                 {
-                    foodXYS[i].symbol='O';
+                    foodXYS[i].symbol=specialfoodsym;
+                    specialfood = true;
                 }
                 else
                 {
-                    foodXYS[i].symbol='o';
+                    foodXYS[i].symbol=normalfoodsym;
+                    specialfood = false;
                 }
             //On the third food selection, there is a fifty percent chance to spawn 
             //a special character. 
             }
             else
             {
-                foodXYS[i].symbol='o';
+                foodXYS[i].symbol=normalfoodsym;
             }
 
         } while ((availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x] != 0));
@@ -118,4 +130,24 @@ bool Food::switchoscillator()
     {
         foodoscillator = true;
     }
+}
+
+bool Food:: specialfoodcheck()
+{
+    return specialfood;
+}
+
+bool Food:: getfoodoscillator()
+{
+    return foodoscillator;
+}
+
+char Food:: getnormal()
+{
+    return normalfoodsym;
+}
+
+char Food:: getspecial()
+{
+    return specialfoodsym;
 }

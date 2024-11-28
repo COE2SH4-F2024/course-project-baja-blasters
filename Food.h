@@ -12,6 +12,9 @@ class Food
         objPos* foodXYS;
         int binsize;
         bool foodoscillator;
+        bool specialfood;
+        char normalfoodsym;
+        char specialfoodsym;
     public:
         Food();
         //Constructors
@@ -26,6 +29,10 @@ class Food
         void generateFood(objPosArrayList playpos, int xrange, int yrange);
         objPos getFoodpos(int index) const;
         objPos getFoodpos(int x, int y) const;
+        bool specialfoodcheck();
+        bool getfoodoscillator();
+        char getnormal();
+        char getspecial();
 };
 
 

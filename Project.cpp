@@ -89,7 +89,23 @@ void DrawScreen(void)
             
             for(int k = 0; k < FOOD_SPAWN_CAP; k++){
                 if(i == p->getFoodlist()->getFoodpos(k).pos->x && j == p->getFoodlist()->getFoodpos(k).pos->y){
-                    board[i][j] = p->getFoodlist()->getFoodpos(k).symbol; 
+                    if(k==3 && p->getFoodlist()->specialfoodcheck())
+                    {
+                        if(p->getFoodlist()->getfoodoscillator())
+                        {
+                            board[i][j]=p->getFoodlist()->getspecial();
+                            p->getFoodlist()->switchoscillator();
+                        }
+                        else
+                        {
+                            board[i][j]=p->getFoodlist()->getnormal();
+                            p->getFoodlist()->switchoscillator();
+                        }
+                    }
+                    else
+                    {
+                        board[i][j]=p->getFoodlist()->getFoodpos(k).getSymbol();
+                    }
                 }
             }
             MacUILib_printf("%c", board[i][j]); 
