@@ -30,7 +30,7 @@ class Player
         Food* getFoodlist()const;
         bool checkFoodconsumption();
         void increasePlayerlength();
-
+        bool checkselfcollision();
         // More methods to be added here
 
     private:

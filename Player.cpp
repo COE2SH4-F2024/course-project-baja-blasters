@@ -132,6 +132,13 @@ void Player::movePlayer()
     }
     (*getPlayerPos()).insertHead(objPos(x,y,(*getPlayerPos()).getHeadElement().symbol));
     increasePlayerlength();
+    if (checkselfcollision())
+    {
+        mainGameMechsRef->setExitTrue();
+        mainGameMechsRef->setLoseFlag();
+    }
+    
+    
 }
 
 // More methods to be added
@@ -174,10 +181,32 @@ void Player::increasePlayerlength()
             mainGameMechsRef->incrementScore(5);
         }
         
-        getFoodlist()->generateFood((getPlayerPos())->getHeadElement(), rowNums, colNums);
+        getFoodlist()->generateFood(player, rowNums, colNums);
     }
     else
     {
         (getPlayerPos())->removeTail();
+    }
+}
+
+bool Player::checkselfcollision()
+{
+    if (player->getSize()>1)
+    {
+        int Playerx=player->getHeadElement().pos->x;
+        int Playery=player->getHeadElement().pos->y;
+        for (int i = 1; i < player->getSize(); i++)
+        {
+            int Pbodyx=player->getElement(i).pos->x;
+            int Pbodyy=player->getElement(i).pos->y;
+            if (Playerx==Pbodyx && Playery==Pbodyy)
+            {
+                return true;
+            }
+        }
+    }
+    else
+    {
+        return false;
     }
 }

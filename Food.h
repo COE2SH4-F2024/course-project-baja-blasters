@@ -20,7 +20,7 @@ class Food
         Food& operator=(const Food &food); 
         //Copy and copy assignment
 
-        void generateFood(objPos playpos, int xrange, int yrange);
+        void generateFood(objPosArrayList* playpos, int xrange, int yrange);
         objPos getFoodpos(int index) const;
         objPos getFoodpos(int x, int y) const;
 };
