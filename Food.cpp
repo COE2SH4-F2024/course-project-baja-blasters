@@ -38,11 +38,14 @@ Food& Food::operator=(const Food &food)
 }
 
 
-void Food:: generateFood(objPos playpos, int xrange, int yrange)
+void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
 {
     srand(time(NULL));
     int availablepos[yrange][xrange] = {0};
-    availablepos[playpos.pos->x][playpos.pos->y] = 1;
+    //availablepos[playpos.getHeadElement().pos->x][playpos.getHeadElement().pos->y] = 1;
+    for(int i = 0; i < playpos.getSize(); i++){
+        availablepos[playpos.getElement(i).pos->y][playpos.getElement(i).pos->x] = 1; 
+    }
     int i;
     for (i = 0; i < binsize; i++)
     {

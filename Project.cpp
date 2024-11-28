@@ -46,7 +46,7 @@ void Initialize(void)
     g = new GameMechs(10, 20); 
     f = new Food(); 
     p = new Player(g,f); 
-    p->getFoodlist()->generateFood((p->getPlayerPos())->getHeadElement(), g->getBoardSizeX(), g->getBoardSizeY());  
+    p->getFoodlist()->generateFood(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
 void GetInput(void)
@@ -96,10 +96,14 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n"); 
     }  
-    MacUILib_printf("%d, %d, %c\n", ((p->getPlayerPos())->getHeadElement()).pos->x, ((p->getPlayerPos())->getHeadElement()).pos->y, ((p->getPlayerPos())->getHeadElement()).symbol); 
-    for(int i = 0; i < FOOD_SPAWN_CAP; i++){
-        MacUILib_printf("%d, %d, %c\n", p->getFoodlist()->getFoodpos(i).pos->x, p->getFoodlist()->getFoodpos(i).pos->y, p->getFoodlist()->getFoodpos(i).symbol); 
-    }
+    //MacUILib_printf("%d, %d, %c\n", ((p->getPlayerPos())->getHeadElement()).pos->x, ((p->getPlayerPos())->getHeadElement()).pos->y, ((p->getPlayerPos())->getHeadElement()).symbol); 
+    // for(int i = 0; i < FOOD_SPAWN_CAP; i++){
+    //     MacUILib_printf("%d, %d, %c\n", p->getFoodlist()->getFoodpos(i).pos->x, p->getFoodlist()->getFoodpos(i).pos->y, p->getFoodlist()->getFoodpos(i).symbol); 
+    // }
+    // for(int i = 0; i < p->getPlayerPos()->getSize(); i++){
+    //     MacUILib_printf("%d, %d, %c, ", p->getPlayerPos()->getElement(i).pos->x, p->getPlayerPos()->getElement(i).pos->y, p->getPlayerPos()->getElement(i).symbol); 
+    //     MacUILib_printf("\n"); 
+    // }
     MacUILib_printf("Score: %d", g->getScore()); 
 
      

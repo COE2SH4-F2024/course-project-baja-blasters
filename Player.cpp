@@ -13,7 +13,7 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, '*')); 
+    (*player).insertHead(objPos(5, 5, '+')); 
     
 }
 
@@ -31,7 +31,7 @@ Player::Player(const Player &pp)
     rowNums = mainGameMechsRef->getBoardSizeX(); 
     colNums = mainGameMechsRef->getBoardSizeY(); 
     player = new objPosArrayList();
-    (*player).insertHead(objPos(5, 5, '*'));
+    (*player).insertHead(objPos(5, 5, '+'));
 }
 Player& Player ::operator=(const Player&pp)
 {
@@ -43,7 +43,7 @@ Player& Player ::operator=(const Player&pp)
         this->rowNums = mainGameMechsRef->getBoardSizeX(); 
         this->colNums = mainGameMechsRef->getBoardSizeY(); 
         this->player = new objPosArrayList();
-        (*this->player).insertHead(objPos(5, 5, '*'));
+        (*this->player).insertHead(objPos(5, 5, '+'));
     }
     return *this;
     
@@ -174,7 +174,7 @@ void Player::increasePlayerlength()
             mainGameMechsRef->incrementScore(5);
         }
         
-        getFoodlist()->generateFood((getPlayerPos())->getHeadElement(), rowNums, colNums);
+        getFoodlist()->generateFood(*getPlayerPos(), mainGameMechsRef->getBoardSizeX(), mainGameMechsRef->getBoardSizeY());
     }
     else
     {
