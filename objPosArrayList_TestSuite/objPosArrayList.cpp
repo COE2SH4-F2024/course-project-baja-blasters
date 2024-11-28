@@ -3,11 +3,16 @@
 // Check lecture contents on general purpose array list construction, 
 // and modify it to support objPos array list construction.
 
+#include "objPosArrayList.h"
+
+// Paste your Tested implementation here.
+// Paste your Tested implementation here.
+// Paste your Tested implementation here.
 objPosArrayList::objPosArrayList()
 {
-    arrayCapacity= FOOD_SPAWN_CAP;
+    arrayCapacity= ARRAY_MAX_CAP;
     listSize=0;
-    aList= new objPos[FOOD_SPAWN_CAP];     
+    aList= new objPos[ARRAY_MAX_CAP];     
 }
 
 objPosArrayList::~objPosArrayList()
@@ -17,8 +22,8 @@ objPosArrayList::~objPosArrayList()
 
 objPosArrayList::objPosArrayList(const objPosArrayList &array)
 {
-    arrayCapacity=FOOD_SPAWN_CAP;
-    aList= new objPos[FOOD_SPAWN_CAP];
+    arrayCapacity=ARRAY_MAX_CAP;
+    aList= new objPos[ARRAY_MAX_CAP];
     listSize=array.getSize();
     for (int i = 0; i < listSize; i++)
     {
