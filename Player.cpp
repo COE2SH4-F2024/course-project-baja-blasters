@@ -181,11 +181,7 @@ void Player::increasePlayerlength()
             mainGameMechsRef->incrementScore(5);
         }
         
-<<<<<<< HEAD
         getFoodlist()->generateFood(*getPlayerPos(), mainGameMechsRef->getBoardSizeX(), mainGameMechsRef->getBoardSizeY());
-=======
-        getFoodlist()->generateFood(player, rowNums, colNums);
->>>>>>> 6a20765e441e3fe5dba964e039d2e5016fa10a26
     }
     else
     {

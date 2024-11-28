@@ -46,7 +46,7 @@ void Initialize(void)
     g = new GameMechs(10, 20); 
     f = new Food(); 
     p = new Player(g,f); 
-    p->getFoodlist()->generateFood()(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
+    p->getFoodlist()->generateFood(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
 void GetInput(void)
