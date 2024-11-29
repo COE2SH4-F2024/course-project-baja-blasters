@@ -121,7 +121,10 @@ void DrawScreen(void)
     //     MacUILib_printf("\n"); 
     // }
     if(!g->getLoseFlagStatus() && !g->getExitFlagStatus()){
-        MacUILib_printf("Score: %d", g->getScore()); 
+        MacUILib_printf("Score: %d\n", g->getScore()); 
+        MacUILib_printf("Use the 'a', 'w', 's', and 'd', keys to move around the board! \n");
+        MacUILib_printf("Food 'o' is worth 1 point\n"); 
+        MacUILib_printf("Look for blinking food for 5 points\n");  
     }
     
     else if(g->getLoseFlagStatus()){
