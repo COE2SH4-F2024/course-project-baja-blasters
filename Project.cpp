@@ -136,7 +136,6 @@ void DrawScreen(void)
         MacUILib_printf("Congrats, you win the game!\n");
         MacUILib_printf("Your final score is: %d", g->getScore()); 
     }
-
      
 }
 
