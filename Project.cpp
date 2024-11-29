@@ -43,7 +43,7 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    g = new GameMechs(10, 20); 
+    g = new GameMechs(30, 60); 
     f = new Food(); 
     p = new Player(g,f); 
     p->getFoodlist()->generateFood(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
