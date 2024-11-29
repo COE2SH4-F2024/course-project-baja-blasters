@@ -43,7 +43,7 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    g = new GameMechs(30, 60); 
+    g = new GameMechs(20,40); 
     f = new Food(); 
     p = new Player(g,f); 
     p->getFoodlist()->generateFood(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
@@ -139,7 +139,8 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST - (15000 * p->getSpeed())); // 0.1s delay
+    //MacUILib_Delay(DELAY_CONST - (15000 * p->getSpeed())); // 0.1s delay
+    MacUILib_Delay(DELAY_CONST/p->getSpeed());
 }
 
 
