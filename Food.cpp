@@ -51,11 +51,12 @@ Food& Food::operator=(const Food &food)
 void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
 {
     srand(time(NULL));
+    // array that shows where the snake is
     int availablepos[yrange][xrange] = {0};
-    //availablepos[playpos.getHeadElement().pos->x][playpos.getHeadElement().pos->y] = 1;
     for(int i = 0; i < playpos.getSize(); i++){
         availablepos[playpos.getElement(i).pos->y][playpos.getElement(i).pos->x] = 1; 
     }
+    // generating food
     int i;
     for (i = 0; i < binsize; i++)
     {
@@ -90,6 +91,7 @@ void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
         availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x]=1;
     }
 }
+
 objPos Food:: getFoodpos(int index) const
 {
     objPos returnobj;
