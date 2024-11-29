@@ -11,7 +11,6 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
     foodlist=thisFood;
-    // more actions to be included
     rowNums = thisGMRef->getBoardSizeX(); 
     colNums = thisGMRef->getBoardSizeY(); 
     player = new objPosArrayList();
@@ -25,7 +24,6 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
 Player::~Player()
 {
     delete player;
-    // delete any heap members here
 }
 
 Player::Player(const Player &pp)
@@ -62,9 +60,6 @@ Player& Player ::operator=(const Player&pp)
 }
 objPosArrayList* Player::getPlayerPos() const
 {
-    // return the reference to the playerPos arrray list
-    
-
     return player;  
 }
 
@@ -146,9 +141,9 @@ void Player::movePlayer()
     }
     (*getPlayerPos()).insertHead(objPos(x,y,headsymbol));
     increasePlayerlength();
+    // collision check
     if (checkselfcollision())
     {
-        //mainGameMechsRef->setExitTrue();
         mainGameMechsRef->setLoseFlag();
     }
     
@@ -167,6 +162,8 @@ bool Player::checkFoodconsumption()
     bool foodeatenflag;
     for(int k = 0; k < FOOD_SPAWN_CAP; k++)
     {
+        // as long a player x != food x or player y != food y coordinates: 
+        // food is not eaten
         if(((getPlayerPos())->getHeadElement()).pos->x!=getFoodlist()->getFoodpos(k).pos->x || ((getPlayerPos())->getHeadElement()).pos->y!=getFoodlist()->getFoodpos(k).pos->y)
         {
             foodeatenflag = false;
@@ -182,15 +179,18 @@ bool Player::checkFoodconsumption()
 
 void Player::increasePlayerlength()
 {
+    // srand is for speed
     srand(time(NULL)); 
     if(checkFoodconsumption())
     {
-        char collidedFruitSym=getFoodlist()->getFoodpos(player->getHeadElement().pos->x,player->getHeadElement().pos->y).getSymbol();
+        char collidedFruitSym = getFoodlist()->getFoodpos(player->getHeadElement().pos->x,player->getHeadElement().pos->y).getSymbol();
 
+        // normal food increments score by 1
         if (collidedFruitSym=='o')
         {
             mainGameMechsRef->incrementScore(1);
         }
+        // special food increments score by 5 and randomly generates new speed
         else if (collidedFruitSym=='O')
         {
             mainGameMechsRef->incrementScore(5);
@@ -211,6 +211,7 @@ bool Player::checkselfcollision()
     {
         int Playerx=player->getHeadElement().pos->x;
         int Playery=player->getHeadElement().pos->y;
+        // collision check for the body of the snake 
         for (int i = 1; i < player->getSize(); i++)
         {
             int Pbodyx=player->getElement(i).pos->x;

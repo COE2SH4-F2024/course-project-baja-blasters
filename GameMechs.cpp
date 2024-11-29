@@ -4,7 +4,6 @@ GameMechs::GameMechs()
 {
     boardSizeX = 30; 
     boardSizeY = 15; 
-    //initialize everything else to null; 
     input = 0; 
     exitFlag = false; 
     loseFlag = false; 
@@ -14,8 +13,7 @@ GameMechs::GameMechs()
 GameMechs::GameMechs(int boardX, int boardY)
 {
     boardSizeX = boardX; 
-    boardSizeY = boardY; 
-    //initialize everything else to null; 
+    boardSizeY = boardY;  
     input = 0; 
     exitFlag = false; 
     loseFlag = false; 
@@ -32,7 +30,6 @@ GameMechs::GameMechs(const GameMechs &game)
 {
     boardSizeX = game.getBoardSizeX(); 
     boardSizeY = game.getBoardSizeY(); 
-    //initialize everything else to null; 
     input = 0; 
     exitFlag = false; 
     loseFlag = false; 
@@ -45,7 +42,6 @@ GameMechs& GameMechs::operator=(const GameMechs &game)
     {
         this->boardSizeX = game.getBoardSizeX(); 
         this->boardSizeY = game.getBoardSizeY(); 
-        //initialize everything else to null; 
         this->input = 0; 
         this->exitFlag = false; 
         this->loseFlag = false; 
@@ -109,5 +105,3 @@ void GameMechs::clearInput()
 {
     input = 0; 
 }
-
-// More methods should be added here

@@ -25,7 +25,7 @@ int main(void)
 {
 
     Initialize();
-
+    // both exitFlag and loseFlag have to be false to run program
     while(!g->getExitFlagStatus() && !g->getLoseFlagStatus())  
     {
         GetInput();
@@ -66,10 +66,11 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-
+    // Main drawing loop draws the board
     char board[g->getBoardSizeX()][g->getBoardSizeY()]; 
     for(int i = 0; i < g->getBoardSizeX(); i++){ // x
         for(int j = 0; j < g->getBoardSizeY(); j++){ // y
+            // First are the borders and white spaces
             if((i == 0 || i == g->getBoardSizeX()-1 || j == 0 || j == g->getBoardSizeY()-1))
             {
                 board[i][j] = '#';
@@ -78,7 +79,8 @@ void DrawScreen(void)
             {
                 board[i][j] = ' '; 
             }
-       
+
+            // Draws the player      
             for(int k = 0; k < (p->getPlayerPos())->getSize(); k++)
             {
                 if(i == (p->getPlayerPos())->getElement(k).pos->x && j == (p->getPlayerPos())->getElement(k).pos->y){
@@ -86,9 +88,10 @@ void DrawScreen(void)
                 }
             }
             
-            
+            // Draws the food
             for(int k = 0; k < FOOD_SPAWN_CAP; k++){
                 if(i == p->getFoodlist()->getFoodpos(k).pos->x && j == p->getFoodlist()->getFoodpos(k).pos->y){
+                    // Checks for special food and oscilates it
                     if(k==3 && p->getFoodlist()->specialfoodcheck())
                     {
                         if(p->getFoodlist()->getfoodoscillator())
@@ -102,6 +105,7 @@ void DrawScreen(void)
                             p->getFoodlist()->switchoscillator();
                         }
                     }
+                    // draws non special food
                     else
                     {
                         board[i][j]=p->getFoodlist()->getFoodpos(k).getSymbol();
@@ -112,24 +116,18 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n"); 
     }  
-    //MacUILib_printf("%d, %d, %c\n", ((p->getPlayerPos())->getHeadElement()).pos->x, ((p->getPlayerPos())->getHeadElement()).pos->y, ((p->getPlayerPos())->getHeadElement()).symbol); 
-    // for(int i = 0; i < FOOD_SPAWN_CAP; i++){
-    //     MacUILib_printf("%d, %d, %c\n", p->getFoodlist()->getFoodpos(i).pos->x, p->getFoodlist()->getFoodpos(i).pos->y, p->getFoodlist()->getFoodpos(i).symbol); 
-    // }
-    // for(int i = 0; i < p->getPlayerPos()->getSize(); i++){
-    //     MacUILib_printf("%d, %d, %c, ", p->getPlayerPos()->getElement(i).pos->x, p->getPlayerPos()->getElement(i).pos->y, p->getPlayerPos()->getElement(i).symbol); 
-    //     MacUILib_printf("\n"); 
-    // }
+    // Game play instructions
     if(!g->getLoseFlagStatus() && !g->getExitFlagStatus()){
         MacUILib_printf("Score: %d\n", g->getScore()); 
         MacUILib_printf("Use the 'a', 'w', 's', and 'd', keys to move around the board! \n");
         MacUILib_printf("Food 'o' is worth 1 point\n"); 
         MacUILib_printf("Look for blinking food for 5 points\n");  
     }
-    
+    // message if you lose
     else if(g->getLoseFlagStatus()){
         MacUILib_printf("Game Over! You lost, your final score is: %d", g->getScore()); 
     }
+    // message if you quit
     else if(g->getExitFlagStatus()){
         MacUILib_printf("Why'd you stop? huh?"); 
     }
@@ -148,8 +146,6 @@ void CleanUp(void)
 {
     delete g; 
     delete f;
-    delete p;
-    //MacUILib_clearScreen();    
-
+    delete p;  
     MacUILib_uninit();
 }
