@@ -7,6 +7,7 @@ GameMechs::GameMechs()
     input = 0; 
     exitFlag = false; 
     loseFlag = false; 
+    winFlag = false; 
     score = 0; 
 }
 
@@ -17,6 +18,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     input = 0; 
     exitFlag = false; 
     loseFlag = false; 
+    winFlag = false; 
     score = 0; 
 }
 
@@ -33,6 +35,7 @@ GameMechs::GameMechs(const GameMechs &game)
     input = 0; 
     exitFlag = false; 
     loseFlag = false; 
+    winFlag = false; 
     score = 0;
 }
 
@@ -45,6 +48,7 @@ GameMechs& GameMechs::operator=(const GameMechs &game)
         this->input = 0; 
         this->exitFlag = false; 
         this->loseFlag = false; 
+        this->winFlag = false; 
         this->score = 0; 
     }
     return *this;
@@ -104,4 +108,12 @@ void GameMechs::setInput(char this_input)
 void GameMechs::clearInput()
 {
     input = 0; 
+}
+
+bool GameMechs::getWinFlagStatus() const{
+    return winFlag; 
+}
+
+void GameMechs::setWinFlag(){
+    winFlag = true; 
 }

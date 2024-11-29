@@ -26,7 +26,7 @@ int main(void)
 
     Initialize();
     // both exitFlag and loseFlag have to be false to run program
-    while(!g->getExitFlagStatus() && !g->getLoseFlagStatus())  
+    while(!g->getExitFlagStatus() && !g->getLoseFlagStatus() && !g->getWinFlagStatus())  
     {
         GetInput();
         RunLogic();
@@ -117,7 +117,7 @@ void DrawScreen(void)
         MacUILib_printf("\n"); 
     }  
     // Game play instructions
-    if(!g->getLoseFlagStatus() && !g->getExitFlagStatus()){
+    if(!g->getLoseFlagStatus() && !g->getExitFlagStatus() && !g->getWinFlagStatus()){
         MacUILib_printf("Score: %d\n", g->getScore()); 
         MacUILib_printf("Use the 'a', 'w', 's', and 'd', keys to move around the board! \n");
         MacUILib_printf("Food 'o' is worth 1 point\n"); 
@@ -130,6 +130,10 @@ void DrawScreen(void)
     // message if you quit
     else if(g->getExitFlagStatus()){
         MacUILib_printf("Why'd you stop? huh?"); 
+    }
+    // message if you win
+    else if(g->getWinFlagStatus()){
+        MacUILib_printf("Congrats, you win the game!"); 
     }
 
      

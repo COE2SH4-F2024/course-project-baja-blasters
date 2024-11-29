@@ -146,6 +146,11 @@ void Player::movePlayer()
     {
         mainGameMechsRef->setLoseFlag();
     }
+    // score check
+    if(mainGameMechsRef->getScore() >= 50){
+        mainGameMechsRef->setWinFlag(); 
+    }
+
     
     
 }
