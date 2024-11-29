@@ -43,7 +43,7 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    g = new GameMechs(20,40); 
+    g = new GameMechs(15, 30); 
     f = new Food(); 
     p = new Player(g,f); 
     p->getFoodlist()->generateFood(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
@@ -133,7 +133,8 @@ void DrawScreen(void)
     }
     // message if you win
     else if(g->getWinFlagStatus()){
-        MacUILib_printf("Congrats, you win the game!"); 
+        MacUILib_printf("Congrats, you win the game!\n");
+        MacUILib_printf("Your final score is: %d", g->getScore()); 
     }
 
      
@@ -141,7 +142,6 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    //MacUILib_Delay(DELAY_CONST - (15000 * p->getSpeed())); // 0.1s delay
     MacUILib_Delay(DELAY_CONST/p->getSpeed());
 }
 
