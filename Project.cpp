@@ -148,7 +148,7 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    // the delay changes based on the speed
+    // the delay changes based on the
     MacUILib_Delay(DELAY_CONST/p->getSpeed());
 }
 
