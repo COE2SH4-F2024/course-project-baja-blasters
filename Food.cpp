@@ -17,7 +17,7 @@ Food::~Food()
     delete[] foodXYS;
 }
 
-//Copy and copy assignment       
+//Copy       
 Food::Food(const Food &food)
 {
     foodXYS= new objPos[binsize];
@@ -30,7 +30,7 @@ Food::Food(const Food &food)
     normalfoodsym = food.normalfoodsym;
     specialfoodsym = food.specialfoodsym;
 }
-
+// Copy Assignment operator
 Food& Food::operator=(const Food &food)
 {
     if (this!=&food)
@@ -47,7 +47,7 @@ Food& Food::operator=(const Food &food)
     return *this;
 }
 
-
+// Generate food function
 void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
 {
     srand(time(NULL));
@@ -65,7 +65,8 @@ void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
         {
             foodXYS[i].pos->x = rand() % (xrange-2) + 1;
             foodXYS[i].pos->y = rand() % (yrange-2) + 1; 
-            //symbol selection here
+            //On the third food selection, there is a fifty percent chance to spawn 
+            //a special character. 
             if(i==3)
             {
                 bool cointoss = rand()%2;
@@ -79,19 +80,21 @@ void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
                     foodXYS[i].symbol=normalfoodsym;
                     specialfood = false;
                 }
-            //On the third food selection, there is a fifty percent chance to spawn 
-            //a special character. 
             }
+            // Normal symbol generation
             else
             {
                 foodXYS[i].symbol=normalfoodsym;
             }
 
         } while ((availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x] != 0));
+
+        // stores the positions of the food generated so it duplicate next time 
         availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x]=1;
     }
 }
 
+// Returns objPos of a food given an index (called if using a list or an array)
 objPos Food:: getFoodpos(int index) const
 {
     objPos returnobj;
@@ -99,10 +102,12 @@ objPos Food:: getFoodpos(int index) const
     {
         returnobj=foodXYS[index];
     }
+    // If index is less than 0, return the first generated food
     else if(index<0)
     {
         returnobj=foodXYS[0];
     }
+    // Returns the last generated food if all else fails
     else
     {
         returnobj=foodXYS[binsize-1];
@@ -110,6 +115,8 @@ objPos Food:: getFoodpos(int index) const
     return returnobj; 
 }
 
+// Returns the objPos of a food given coordinates
+// (called when checking if a spot on the board has a food or not)
 objPos Food ::getFoodpos(int x, int y) const
 {
     for (int i = 0; i < binsize; i++)
@@ -122,6 +129,7 @@ objPos Food ::getFoodpos(int x, int y) const
     return objPos(0,0,0);
 }
 
+//Used to turn on and off the blinking food feature 
 bool Food::switchoscillator()
 {
     if(foodoscillator)
@@ -134,6 +142,7 @@ bool Food::switchoscillator()
     }
 }
 
+// The next four are pretty self explanatory
 bool Food:: specialfoodcheck()
 {
     return specialfood;

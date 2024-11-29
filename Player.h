@@ -8,14 +8,7 @@
 #include <iostream>
 
 class Player
-{
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
-    
+{   
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
 
@@ -42,12 +35,15 @@ class Player
         Food* getFoodlist()const;
 
     private:
+        // The player is associated with almost everything. 
+        // below is the array list of objPos (coordinates and symbol) of the snake
         objPosArrayList* player;
         char headsymbol;
         char bodysymbol;       
         enum Dir myDir;
+        // The food associated with the player
         Food* foodlist;
-        // Need a reference to the Main Game Mechanisms
+        // The game mechanics associated with the player
         GameMechs* mainGameMechsRef;
         int rowNums; 
         int colNums; 

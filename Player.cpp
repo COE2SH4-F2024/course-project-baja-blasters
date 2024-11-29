@@ -1,11 +1,14 @@
 #include "Player.h"
 #include <time.h> 
 
+// Empty constructor,
+// This is okay because end up calling the one below
 Player::Player(){
     
 
 }
 
+// Constructor
 Player::Player(GameMechs* thisGMRef,Food*thisFood)
 {
     mainGameMechsRef = thisGMRef;
@@ -21,11 +24,13 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
        
 }
 
+// Destructor
 Player::~Player()
 {
     delete player;
 }
 
+// Copy
 Player::Player(const Player &pp)
 {
     mainGameMechsRef=pp.mainGameMechsRef;
@@ -39,6 +44,8 @@ Player::Player(const Player &pp)
     (*player).insertHead(objPos(5, 5, headsymbol));
     speed = 1; 
 }
+
+// Copy assignment
 Player& Player ::operator=(const Player&pp)
 {
     if (this!=&pp)
@@ -58,6 +65,8 @@ Player& Player ::operator=(const Player&pp)
     return *this;
     
 }
+
+// Returns the objPosArrayList (ie. the objPos' of the snake)
 objPosArrayList* Player::getPlayerPos() const
 {
     return player;  
@@ -107,6 +116,7 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
     int x = (*getPlayerPos()).getHeadElement().pos->x;
     int y = (*getPlayerPos()).getHeadElement().pos->y;
+    // Before you move, remove the head and add a new one
     (*getPlayerPos()).removeHead();
     (*getPlayerPos()).insertHead(objPos(x,y,bodysymbol));
     switch(myDir){ 
@@ -139,8 +149,10 @@ void Player::movePlayer()
     if(y < 1){
         y = colNums-2; 
     }
+    // At the end, you add the head and increase the length
     (*getPlayerPos()).insertHead(objPos(x,y,headsymbol));
     increasePlayerlength();
+
     // collision check
     if (checkselfcollision())
     {
@@ -157,11 +169,13 @@ void Player::movePlayer()
 
 // More methods to be added
 
+// Returns the food associated with the player
 Food* Player:: getFoodlist() const
 {
     return foodlist;
 }
 
+// Checks if food has been eaten
 bool Player::checkFoodconsumption()
 {
     bool foodeatenflag;
@@ -182,10 +196,12 @@ bool Player::checkFoodconsumption()
     return foodeatenflag;
 }
 
+// Increases player length
 void Player::increasePlayerlength()
 {
     // srand is for speed
     srand(time(NULL)); 
+    // If food has been eaten, do the followig: 
     if(checkFoodconsumption())
     {
         char collidedFruitSym = getFoodlist()->getFoodpos(player->getHeadElement().pos->x,player->getHeadElement().pos->y).getSymbol();
@@ -201,15 +217,17 @@ void Player::increasePlayerlength()
             mainGameMechsRef->incrementScore(5);
             speed = rand() % 5 + 1; 
         }
-        
+        // Regenreates food
         getFoodlist()->generateFood(*getPlayerPos(), mainGameMechsRef->getBoardSizeX(), mainGameMechsRef->getBoardSizeY());
     }
+    // If food hasn't been eaten, remove the tail so the snake an move forward
     else
     {
         (getPlayerPos())->removeTail();
     }
 }
 
+// Checks if the snake has eaten itself
 bool Player::checkselfcollision()
 {
     if (player->getSize()>1)
@@ -233,6 +251,7 @@ bool Player::checkselfcollision()
     }
 }
 
+// Very self explanatory
 int Player::getSpeed(){
     return speed; 
 }
