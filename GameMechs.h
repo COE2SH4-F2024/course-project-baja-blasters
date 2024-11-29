@@ -25,12 +25,14 @@ class GameMechs
         objPos food;
 
     public:
+        // Rule of 6 stuff
         GameMechs();
         GameMechs(int boardX, int boardY);
         ~GameMechs();
         GameMechs(const GameMechs &game);
         GameMechs& operator=(const GameMechs &game);
 
+        // All rather self explanatory
         bool getExitFlagStatus() const; 
         void setExitTrue();
         bool getLoseFlagStatus() const;

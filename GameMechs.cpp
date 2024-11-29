@@ -1,5 +1,6 @@
 #include "GameMechs.h"
 
+// Constructor
 GameMechs::GameMechs()
 {
     boardSizeX = 30; 
@@ -11,6 +12,7 @@ GameMechs::GameMechs()
     score = 0; 
 }
 
+// Also a constructor
 GameMechs::GameMechs(int boardX, int boardY)
 {
     boardSizeX = boardX; 
@@ -28,6 +30,7 @@ GameMechs::~GameMechs()
     
 }
 
+// Copy
 GameMechs::GameMechs(const GameMechs &game)
 {
     boardSizeX = game.getBoardSizeX(); 
@@ -39,6 +42,7 @@ GameMechs::GameMechs(const GameMechs &game)
     score = 0;
 }
 
+// Copy assignment
 GameMechs& GameMechs::operator=(const GameMechs &game)
 {
     if (this!=&game)
@@ -53,6 +57,8 @@ GameMechs& GameMechs::operator=(const GameMechs &game)
     }
     return *this;
 }
+
+// The ones below are self explanatory
 bool GameMechs::getExitFlagStatus() const
 {
     return exitFlag; 

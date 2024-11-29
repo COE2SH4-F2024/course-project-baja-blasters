@@ -45,13 +45,16 @@ void Initialize(void)
     MacUILib_clearScreen();
     g = new GameMechs(15, 30); 
     f = new Food(); 
-    p = new Player(g,f); 
+    p = new Player(g,f);
+    // this part can be summarized like this
+    // player -> Food* -> generateFood()
     p->getFoodlist()->generateFood(*p->getPlayerPos(), g->getBoardSizeX(), g->getBoardSizeY());  
 }
 
 void GetInput(void)
 {
     if(MacUILib_hasChar()){
+        // get input, get direction, clear input
         g->setInput(MacUILib_getChar()); 
         p->updatePlayerDir();
         g->clearInput(); 
@@ -60,6 +63,7 @@ void GetInput(void)
 
 void RunLogic(void)
 {
+    // self explanatory
     p->movePlayer();
 }
 
@@ -67,6 +71,7 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
     // Main drawing loop draws the board
+    // board that has all the stuff
     char board[g->getBoardSizeX()][g->getBoardSizeY()]; 
     for(int i = 0; i < g->getBoardSizeX(); i++){ // x
         for(int j = 0; j < g->getBoardSizeY(); j++){ // y
@@ -94,6 +99,7 @@ void DrawScreen(void)
                     // Checks for special food and oscilates it
                     if(k==3 && p->getFoodlist()->specialfoodcheck())
                     {
+                        // This part oscillates the food from 'o' to 'O' 
                         if(p->getFoodlist()->getfoodoscillator())
                         {
                             board[i][j]=p->getFoodlist()->getspecial();
@@ -141,6 +147,7 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
+    // the delay changes based on the speed
     MacUILib_Delay(DELAY_CONST/p->getSpeed());
 }
 

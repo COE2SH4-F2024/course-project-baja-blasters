@@ -35,10 +35,13 @@ class Food
 
         // Check for special food
         bool specialfoodcheck();
+        char getnormal();
+        char getspecial();
+        
         // oscilator functions
         bool switchoscillator();
         bool getfoodoscillator();
-        char getnormal();
-        char getspecial();
+
+        
 };
 #endif
