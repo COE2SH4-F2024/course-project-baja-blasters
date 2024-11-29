@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <time.h> 
 
 Player::Player(){
     
@@ -17,6 +18,7 @@ Player::Player(GameMechs* thisGMRef,Food*thisFood)
     headsymbol = '@';
     bodysymbol = '+';
     (*player).insertHead(objPos(5, 5, headsymbol));
+    speed = 1; 
        
 }
 
@@ -37,6 +39,7 @@ Player::Player(const Player &pp)
     headsymbol = pp.headsymbol;
     bodysymbol = pp.bodysymbol;
     (*player).insertHead(objPos(5, 5, headsymbol));
+    speed = 1; 
 }
 Player& Player ::operator=(const Player&pp)
 {
@@ -52,6 +55,7 @@ Player& Player ::operator=(const Player&pp)
         this->getPlayerPos()->insertHead(objPos(5, 5, headsymbol));
         this->headsymbol = pp.headsymbol;
         this->bodysymbol = pp.bodysymbol;
+        this->speed = pp.speed; 
     }
     return *this;
     
@@ -178,6 +182,7 @@ bool Player::checkFoodconsumption()
 
 void Player::increasePlayerlength()
 {
+    srand(time(NULL)); 
     if(checkFoodconsumption())
     {
         char collidedFruitSym=getFoodlist()->getFoodpos(player->getHeadElement().pos->x,player->getHeadElement().pos->y).getSymbol();
@@ -189,6 +194,7 @@ void Player::increasePlayerlength()
         else if (collidedFruitSym=='O')
         {
             mainGameMechsRef->incrementScore(5);
+            speed = rand() % 5 + 1; 
         }
         
         getFoodlist()->generateFood(*getPlayerPos(), mainGameMechsRef->getBoardSizeX(), mainGameMechsRef->getBoardSizeY());
@@ -219,4 +225,12 @@ bool Player::checkselfcollision()
     {
         return false;
     }
+}
+
+int Player::getSpeed(){
+    return speed; 
+}
+
+void Player::setSpeed(int s){
+    speed = s; 
 }

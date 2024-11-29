@@ -32,6 +32,8 @@ class Player
         bool checkFoodconsumption();
         void increasePlayerlength();
         bool checkselfcollision();
+        int getSpeed(); 
+        void setSpeed(int s); 
         // More methods to be added here
 
     private:
@@ -44,6 +46,8 @@ class Player
         GameMechs* mainGameMechsRef;
         int rowNums; 
         int colNums; 
+        int speed; 
+
 };
 
 #endif
