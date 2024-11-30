@@ -116,7 +116,7 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
     int x = (*getPlayerPos()).getHeadElement().pos->x;
     int y = (*getPlayerPos()).getHeadElement().pos->y;
-    // Before you move, remove the head and add a new one
+    // Before you move, remove the head and extend the body. Ex @++ -> ++ -> +++
     (*getPlayerPos()).removeHead();
     (*getPlayerPos()).insertHead(objPos(x,y,bodysymbol));
     switch(myDir){ 
@@ -149,8 +149,11 @@ void Player::movePlayer()
     if(y < 1){
         y = colNums-2; 
     }
-    // At the end, you add the head and increase the length
+    // At the end, you add the head to the new position, so continuing from last comment:
+    //@++ -> ++ -> +++ -> @+++
     (*getPlayerPos()).insertHead(objPos(x,y,headsymbol));
+    //Increases lenght if a food is eaten (ie, doesn't remove tail) but if no food is eaten, it removes the tail
+    //So if the food is eaten, @+++ is kept, but if no food is eaten @++ the length is the same as before but different position
     increasePlayerlength();
 
     // collision check
@@ -158,8 +161,8 @@ void Player::movePlayer()
     {
         mainGameMechsRef->setLoseFlag();
     }
-    // score check
-    if(mainGameMechsRef->getScore() >= 50){
+    // score check//win condition
+    if(player->getSize() >= 50){
         mainGameMechsRef->setWinFlag(); 
     }
 
@@ -189,6 +192,8 @@ bool Player::checkFoodconsumption()
         }
         else
         {
+            //This happens when the positions of a food and the head element are the same, thus break out of the for loop 
+            //that is searching for the position equality. 
             foodeatenflag=true;
             break;
         }
@@ -206,21 +211,21 @@ void Player::increasePlayerlength()
     {
         char collidedFruitSym = getFoodlist()->getFoodpos(player->getHeadElement().pos->x,player->getHeadElement().pos->y).getSymbol();
 
-        // normal food increments score by 1
-        if (collidedFruitSym=='o')
+        // If normal food is eaten increments score by 1
+        if (collidedFruitSym==foodlist->getnormal())
         {
             mainGameMechsRef->incrementScore(1);
         }
         // special food increments score by 5 and randomly generates new speed
-        else if (collidedFruitSym=='O')
+        else if (collidedFruitSym==foodlist->getspecial())
         {
             mainGameMechsRef->incrementScore(5);
             speed = rand() % 5 + 1; 
         }
-        // Regenreates food
+        // Regenreates food since a food was eaten
         getFoodlist()->generateFood(*getPlayerPos(), mainGameMechsRef->getBoardSizeX(), mainGameMechsRef->getBoardSizeY());
     }
-    // If food hasn't been eaten, remove the tail so the snake an move forward
+    // If food hasn't been eaten, remove the tail so the snake and move forward
     else
     {
         (getPlayerPos())->removeTail();
@@ -239,6 +244,7 @@ bool Player::checkselfcollision()
         {
             int Pbodyx=player->getElement(i).pos->x;
             int Pbodyy=player->getElement(i).pos->y;
+            
             if (Playerx==Pbodyx && Playery==Pbodyy)
             {
                 return true;

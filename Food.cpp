@@ -51,8 +51,9 @@ Food& Food::operator=(const Food &food)
 void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
 {
     srand(time(NULL));
-    // array that shows where the snake is
+    // array that shows where the snake is, if some (x,y) is taken, then availablepos[y][x] is equal to 1
     int availablepos[yrange][xrange] = {0};
+    //Set the player head and body positions to 1
     for(int i = 0; i < playpos.getSize(); i++){
         availablepos[playpos.getElement(i).pos->y][playpos.getElement(i).pos->x] = 1; 
     }
@@ -65,7 +66,7 @@ void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
         {
             foodXYS[i].pos->x = rand() % (xrange-2) + 1;
             foodXYS[i].pos->y = rand() % (yrange-2) + 1; 
-            //On the third food selection, there is a fifty percent chance to spawn 
+            //On the fourth food selection, there is a fifty percent chance to spawn 
             //a special character. 
             if(i==3)
             {
@@ -89,7 +90,7 @@ void Food:: generateFood(objPosArrayList playpos, int xrange, int yrange)
 
         } while ((availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x] != 0));
 
-        // stores the positions of the food generated so it duplicate next time 
+        // Sets the new food position in the array to 1 (occupied) 
         availablepos[foodXYS[i].pos->y][foodXYS[i].pos->x]=1;
     }
 }
@@ -129,8 +130,8 @@ objPos Food ::getFoodpos(int x, int y) const
     return objPos(0,0,0);
 }
 
-//Used to turn on and off the blinking food feature 
-bool Food::switchoscillator()
+//Used to flip the special food between special and normal form
+void Food::switchoscillator()
 {
     if(foodoscillator)
     {

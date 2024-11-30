@@ -39,7 +39,7 @@ class Food
         char getspecial();
         
         // oscilator functions
-        bool switchoscillator();
+        void switchoscillator();
         bool getfoodoscillator();
 
         

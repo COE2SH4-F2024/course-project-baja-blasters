@@ -25,7 +25,7 @@ int main(void)
 {
 
     Initialize();
-    // both exitFlag and loseFlag have to be false to run program
+    // both exitFlag and loseFlag and winflag have to be false to run program
     while(!g->getExitFlagStatus() && !g->getLoseFlagStatus() && !g->getWinFlagStatus())  
     {
         GetInput();
@@ -96,7 +96,8 @@ void DrawScreen(void)
             // Draws the food
             for(int k = 0; k < FOOD_SPAWN_CAP; k++){
                 if(i == p->getFoodlist()->getFoodpos(k).pos->x && j == p->getFoodlist()->getFoodpos(k).pos->y){
-                    // Checks for special food and oscilates it
+                    // Checks for special food on the board and oscilates it
+                    //Each food generation may or may not have a special food, which is why we oscillate only if specialfoodcheck() is true
                     if(k==3 && p->getFoodlist()->specialfoodcheck())
                     {
                         // This part oscillates the food from 'o' to 'O' 
